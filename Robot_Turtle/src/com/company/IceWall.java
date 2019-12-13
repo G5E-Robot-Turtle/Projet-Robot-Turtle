@@ -1,8 +1,8 @@
 package com.company;
 
 public class IceWall extends Block {
-    private String description="Je bloque le chemin, mais je suis destructible par le laser";
-    private String name="Mur de glace" ;
+    private String description = "Je bloque le chemin, mais je suis destructible par le laser";
+    private String name = "Mur de glace";
 
     public String getDescription() {
         return description;
@@ -11,10 +11,11 @@ public class IceWall extends Block {
     public IceWall() {
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public boolean isDestructible(){
+
+    public boolean isDestructible() {
         return true;
     }
 }

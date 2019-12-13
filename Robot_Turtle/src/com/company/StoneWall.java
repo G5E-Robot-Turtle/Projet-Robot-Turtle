@@ -1,8 +1,8 @@
 package com.company;
 
 public class StoneWall {
-    private String description="Je bloque le chemin, rien ne peut me détruire";
-    private String name="Mur de pierre";
+    private String description = "Je bloque le chemin, rien ne peut me détruire";
+    private String name = "Mur de pierre";
 
     public String getDescription() {
         return description;
@@ -11,10 +11,11 @@ public class StoneWall {
     public StoneWall() {
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public boolean isDestructible(){
+
+    public boolean isDestructible() {
         return false;
     }
 }

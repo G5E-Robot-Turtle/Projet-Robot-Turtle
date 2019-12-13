@@ -1,13 +1,14 @@
 package com.company;
 //package Card;
+
 import Card.Card;
 import Card.Deck;
 
 import java.util.List;
 
-public class Player extends Cell{
+public class Player extends Cell {
     private String color;
-    private char[] direction={'N','E','S','O'};   //NORD, EST, SUD, OUEST
+    private char[] direction = {'N', 'E', 'S', 'O'};   //NORD, EST, SUD, OUEST
     private char currentDirection = direction[0];   //direction Nord par défaut
     private int score;
     private int passageOrder;
@@ -18,8 +19,8 @@ public class Player extends Cell{
     private Deck deck = new Deck();
     private String name;
 
-    public Player() {} //constructeur par défaut
-
+    public Player() {
+    } //constructeur par défaut
 
 
     public String getColor() {
@@ -50,11 +51,11 @@ public class Player extends Cell{
 //        return deck;
 //    }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    private static Card pickCardFromDeck(){
+    private static Card pickCardFromDeck() {
         //à compléter
         return null;     //à modifier
     }

@@ -1,13 +1,13 @@
 package Card;
 
 public class PurpleCard implements Card {
-    private String name ="Carte violette";
-    private String description ="Fait tourner la tortue de 90° dans le sens horaire";
+    private String name = "Carte violette";
+    private String description = "Fait tourner la tortue de 90° dans le sens horaire";
 
 
     public PurpleCard() {
-        this.name=name;   //mettre getName() si y'a un bug
-        this.description=description;
+        this.name = name;   //mettre getName() si y'a un bug
+        this.description = description;
     }
 
     @Override

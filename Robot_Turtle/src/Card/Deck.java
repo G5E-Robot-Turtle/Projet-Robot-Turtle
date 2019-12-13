@@ -7,7 +7,7 @@ public class Deck {
     private Stack<Card> deck;
 
     public Deck() {
-        this.deck=shuffle();
+        this.deck = shuffle();
     }
 
 
@@ -36,7 +36,7 @@ public class Deck {
             } else {      //  (nbCardMax-nbLaserCard-1) < random < (nbCardMax)
                 deck.add(new LaserCard());
             }
-            mixedCard[random]=1;   //pour pas que le cas actuel de random se répète (éviter deux fois random = 5 par exemple)
+            mixedCard[random] = 1;   //pour pas que le cas actuel de random se répète (éviter deux fois random = 5 par exemple)
         }
 
         return deck;

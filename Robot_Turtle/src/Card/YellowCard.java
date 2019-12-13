@@ -1,12 +1,12 @@
 package Card;
 
 public class YellowCard implements Card {
-    private String name="Carte jaune";
-    private String description="Fait tourner la tortue de 90° dans le sens anti-horaire";
+    private String name = "Carte jaune";
+    private String description = "Fait tourner la tortue de 90° dans le sens anti-horaire";
 
     public YellowCard() {
-        this.name=name;   //mettre getName() si y'a un bug
-        this.description=description;
+        this.name = name;   //mettre getName() si y'a un bug
+        this.description = description;
     }
 
     @Override
