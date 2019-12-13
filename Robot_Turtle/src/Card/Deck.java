@@ -1,6 +1,6 @@
 package Card;
 
-import javax.swing.event.PopupMenuListener;
+
 import java.util.Stack;
 
 public class Deck {
@@ -21,7 +21,7 @@ public class Deck {
         int nbCardMax = nbBlueCard + nbLaserCard + nbPurpleCard + nbYellowCard;
         if (!deck.isEmpty()) {
             deck.removeAllElements();
-        }
+        }  //pas de else, sinon il vide et c'est tout
         while (deck.size() < 37) {
             do {
                 random = (int) (Math.random() * (nbCardMax + 1));   //donne un entier tel que   0 <= entier <nbCardMax+1
