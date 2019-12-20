@@ -1,5 +1,5 @@
 package com.company;
-
+import cell.*;
 
 public class Grid {
     private Cell[][] grid;

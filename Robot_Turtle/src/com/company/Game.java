@@ -1,7 +1,6 @@
 package com.company;
 
-import Cell.Player;
-
+import cell.*;
 import java.util.List;
 
 public class Game {
