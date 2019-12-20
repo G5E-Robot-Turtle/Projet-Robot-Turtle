@@ -1,13 +1,11 @@
-package Card;
+package card;
 
-public class BlueCard implements Card {
-    private String name = "Carte Bleu";
-    private String description = "Fait avancer la tortue d'une case";
+public class PurpleCard implements Card {
+    private String name = "Carte violette";
+    private String description = "Fait tourner la tortue de 90° dans le sens horaire";
 
-    public BlueCard() {
-    }
 
-    public BlueCard(String name, String description) {
+    public PurpleCard() {
         this.name = name;   //mettre getName() si y'a un bug
         this.description = description;
     }

@@ -1,8 +1,8 @@
 package com.company;
 //package Card;
 
-import Card.Card;
-import Card.Deck;
+import card.Card;
+import card.Deck;
 
 import java.util.List;
 
