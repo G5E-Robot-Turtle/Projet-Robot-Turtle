@@ -30,6 +30,6 @@ public class PurpleCard implements Card {
     }
 
     public void play() {
-        Player.direction = Direction.EAST;
+//        Player.getCurrentDirection = Direction.EAST;
     }
 }

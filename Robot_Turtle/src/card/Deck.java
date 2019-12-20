@@ -3,7 +3,7 @@ package card;
 import java.util.Stack;
 
 public class Deck {
-    private Stack<Card> deck;
+    private Stack<Card> deck = new Stack<>();
 
     public Deck() {
         this.deck = shuffle();
@@ -23,7 +23,7 @@ public class Deck {
         }  //pas de else, sinon il vide et c'est tout
         while (deck.size() < 37) {
             do {
-                random = (int) (Math.random() * (nbCardMax + 1));   //donne un entier tel que   0 <= entier <nbCardMax+1
+                random = (int) (Math.random() * (nbCardMax));   //donne un entier tel que   0 <= entier <nbCardMax
             } while (mixedCard[random] != 0);     //exemple si mixedCard[random] == 1, alors la boucle regénère un nombre aléatoire
 
             if (random < nbBlueCard) {
