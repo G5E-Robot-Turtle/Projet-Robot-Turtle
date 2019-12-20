@@ -1,4 +1,4 @@
-package Cell;
+package cell;
 
 public class StoneWall {
     private String description = "Je bloque le chemin, rien ne peut me détruire";

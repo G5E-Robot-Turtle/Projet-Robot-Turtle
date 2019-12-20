@@ -1,4 +1,4 @@
-package Cell;
+package cell;
 
 public abstract class Block extends Cell {
 
