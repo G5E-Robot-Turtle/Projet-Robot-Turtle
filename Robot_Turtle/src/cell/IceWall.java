@@ -1,4 +1,4 @@
-package Cell;
+package cell;
 
 public class IceWall extends Block {
     private String description = "Je bloque le chemin, mais je suis destructible par le laser";

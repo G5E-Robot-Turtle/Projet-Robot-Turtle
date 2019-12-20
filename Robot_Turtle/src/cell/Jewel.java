@@ -1,4 +1,4 @@
-package Cell;
+package cell;
 
 public class Jewel extends Cell {
     private String description = "Je suis un Joyau, la tortue de bonne couleur qui me trouve se qualifie pour la victoire !";
