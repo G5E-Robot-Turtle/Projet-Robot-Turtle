@@ -1,5 +1,6 @@
 package card;
 
+import com.company.Direction;
 import com.company.Player;
 
 public class PurpleCard implements Card {
