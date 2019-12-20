@@ -1,4 +1,6 @@
-package Card;
+package card;
+
+import com.company.Player;
 
 public class PurpleCard implements Card {
     private String name = "Carte violette";
@@ -24,5 +26,9 @@ public class PurpleCard implements Card {
     @Override
     public String getDescription() {
         return description;
+    }
+
+    public void play() {
+        Player.direction = Direction.EAST;
     }
 }

@@ -1,13 +1,16 @@
-package Cell;
+package com.company;
+//package Card;
 
-import Card.*;
+import card.Card;
+import card.Deck;
+import card.Direction;
 
 import java.util.List;
 
 public class Player extends Cell {
     private String color;
-    private char[] direction = {'N', 'E', 'S', 'O'};   //NORD, EST, SUD, OUEST
-    private char currentDirection = direction[0];   //direction Nord par défaut
+    public static Direction direction;
+    private Direction currentDirection = direction;   //direction Nord par défaut
     private int score;
     private int passageOrder;
     private List<Card> program;
@@ -18,21 +21,15 @@ public class Player extends Cell {
     private String name;
 
     public Player() {
+        this.direction = Direction.SOUTH;
     } //constructeur par défaut
-
-    public Player(String name, String color, char currentDirection, int passageOrder) {
-        this.name = name;
-        this.color = color;
-        this.currentDirection = currentDirection;
-        this.passageOrder = passageOrder;
-    }
 
 
     public String getColor() {
         return color;
     }
 
-    public char getCurrentDirection() {
+    public Direction getCurrentDirection() {
         return currentDirection;
     }
 

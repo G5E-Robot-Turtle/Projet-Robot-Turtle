@@ -1,14 +1,13 @@
-package Card;
+package card;
 
-public class LaserCard implements Card {
-    private String name = "Carte Laser";
-    private String description = "Attaque le premier obstacle sur le chemin, attention si l'obstacle est un Joyau, le laser se réfléchit.";
+public class YellowCard implements Card {
+    private String name = "Carte jaune";
+    private String description = "Fait tourner la tortue de 90° dans le sens anti-horaire";
 
-    public LaserCard() {    //constructeur par défaut
+    public YellowCard() {
         this.name = name;   //mettre getName() si y'a un bug
-        this.description = description;   //mettre getDescrition() si y'a un bug
+        this.description = description;
     }
-
 
     @Override
     public void playCard() {

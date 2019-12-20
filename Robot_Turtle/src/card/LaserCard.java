@@ -1,16 +1,14 @@
-package Card;
+package card;
 
-public class BlueCard implements Card {
-    private String name = "Carte Bleu";
-    private String description = "Fait avancer la tortue d'une case";
+public class LaserCard implements Card {
+    private String name = "Carte Laser";
+    private String description = "Attaque le premier obstacle sur le chemin, attention si l'obstacle est un Joyau, le laser se réfléchit.";
 
-    public BlueCard() {
-    }
-
-    public BlueCard(String name, String description) {
+    public LaserCard() {    //constructeur par défaut
         this.name = name;   //mettre getName() si y'a un bug
-        this.description = description;
+        this.description = description;   //mettre getDescrition() si y'a un bug
     }
+
 
     @Override
     public void playCard() {
