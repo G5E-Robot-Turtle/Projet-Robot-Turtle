@@ -8,4 +8,12 @@ public class Jewel extends Cell {
 
     public Jewel() {
     }
+
+    public void plawerWin() {
+
+    }
+
+    public boolean isSurrouded() {
+        return true;
+    }
 }

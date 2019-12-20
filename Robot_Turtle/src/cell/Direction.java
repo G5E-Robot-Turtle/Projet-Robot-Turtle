@@ -4,5 +4,13 @@ public enum Direction {
     NORTH,
     EAST,
     SOUTH,
-    WEST
+    WEST;
+
+    public void changerDirR() {
+
+    }
+
+    public void changerDirL() {
+
+    }
 }

@@ -1,6 +1,7 @@
 package cell;
 
 public abstract class Block extends Cell {
+    private boolean isDestructible;
 
     public String getDescritpion() {
         return "I'm a block";
@@ -9,8 +10,4 @@ public abstract class Block extends Cell {
     public String getName() {
         return "Block";
     }
-
-    public boolean isDestructible() {
-        return false;
-    }   //par défaut on va dire qu'un block est indestructible
 }
