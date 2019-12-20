@@ -1,4 +1,4 @@
-package card;
+package com.company;
 
 public enum Direction {
     NORTH,
