@@ -1,6 +1,7 @@
 package cell;
 
 public class StoneWall {
+    private boolean isDestructible = false;
     private String description = "Je bloque le chemin, rien ne peut me détruire";
     private String name = "Mur de pierre";
 
@@ -16,6 +17,6 @@ public class StoneWall {
     }
 
     public boolean isDestructible() {
-        return false;
+        return isDestructible;
     }
 }

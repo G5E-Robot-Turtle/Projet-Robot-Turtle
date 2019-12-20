@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Player extends Cell {
     private String color;
-    public static Direction direction;
+    private Direction direction;
     private Direction currentDirection = direction;   //direction Nord par défaut
     private int score;
     private int passageOrder;
@@ -36,7 +36,9 @@ public class Player extends Cell {
     public Direction getCurrentDirection() {
         return currentDirection;
     }
-
+    public void setCurrentDirection(Direction newDirection){
+        this.direction=newDirection; //à vérifier
+    }
     public int getPassageOrder() {
         return passageOrder;
     }
