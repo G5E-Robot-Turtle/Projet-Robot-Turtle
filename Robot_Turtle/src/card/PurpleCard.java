@@ -1,7 +1,7 @@
 package card;
 
-import com.company.Direction;
-import com.company.Player;
+import cell.Direction;
+import cell.Player;
 
 public class PurpleCard implements Card {
     private String name = "Carte violette";
