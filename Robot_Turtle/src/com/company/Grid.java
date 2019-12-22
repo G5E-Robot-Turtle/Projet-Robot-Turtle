@@ -17,7 +17,7 @@ public class Grid {
         return grid;
     }
 
-    public void initGrid() {  //  pour 2 joueur
+    public void initGrid() {  //  pour 2 joueur, à enlever pour plus tard éventuellement
         Player player1 = new Player();             //test
         Player player2 = new Player("Turtle","red",Direction.SOUTH,2);
         Jewel jewel = new Jewel();
@@ -34,7 +34,7 @@ public class Grid {
         displayGrid(8, 8);
     }
 
-    public void initGrid(int nbJoueur) {  //  pour 2 joueur
+    public void initGrid(int nbJoueur) {  //  pour 2 à 4  joueurs
         Player player1 = new Player();
         Player player2 = new Player("Turtle","red",Direction.SOUTH,2);
         Jewel jewel = new Jewel();
