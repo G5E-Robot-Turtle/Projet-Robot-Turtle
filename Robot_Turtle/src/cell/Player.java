@@ -63,7 +63,7 @@ public class Player extends Cell {
         return this.name;
     }
 
-    private static Card pickCardFromDeck() {
+    private static Card pickCardFromDeck() {    //les profs n'aiment pas le static dans la POO
         //à compléter
         return null;     //à modifier
     }
