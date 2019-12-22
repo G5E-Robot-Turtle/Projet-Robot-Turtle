@@ -16,29 +16,18 @@ public class Grid {
 
     public void initGrid() {  //à compléter
         Player player1 = new Player();             //test
-
-        grid[0][0]=player1;
-
+        Empty empty1 = new Empty();
 
         System.out.println(grid[0][0]);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                grid[i][j] = player1;
-                System.out.print(grid[i][j] +"  ");
+                grid[i][j] = empty1;
             }
-            System.out.println();
         }
-
+        grid[0][0] = player1;
+        displayGrid(8, 8);
     }
 
-    public void displayGrid(){
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(grid[i][j]+"  ");
-            }
-            System.out.println();
-        }
-    }
 
     //    public Position getPlayerPosition(Player player){ }    //on garde cette méthode ?
     public void addCellObject(Position position) {    //return une Position ?, à compléter
@@ -46,6 +35,15 @@ public class Grid {
 
     public void makeEmpty(Position position) {   //à compléter
 
+    }
+
+    public void displayGrid(int line, int column) {
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                System.out.print(this.grid[i][j].getName() + "  ");
+            }
+            System.out.println();   //retour à la ligne
+        }
     }
 
 

@@ -1,10 +1,10 @@
 package cell;
 
 public class Empty extends Cell{
-    private String name="Empty zone";
+    private String name="EmptyZone";
 
-    public String getDescritpion() {
-        return "I'm a block";
+    public String getDescription() {
+        return "I'm an empty zone";
     }
 
     public String getName() {

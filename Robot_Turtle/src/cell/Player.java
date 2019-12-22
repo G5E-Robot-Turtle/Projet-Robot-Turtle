@@ -16,7 +16,7 @@ public class Player extends Cell {
     private List<Block> blocks;
     private Deck discard;   //défausse
     private Deck deck = new Deck();
-    private String name;
+    private String name = "Turtle";
 
     public Player() {
         this.direction = Direction.SOUTH;
@@ -40,19 +40,19 @@ public class Player extends Cell {
         this.direction=newDirection; //à vérifier
     }
     public int getPassageOrder() {
-        return passageOrder;
+        return this.passageOrder;
     }
 
     public List<Card> getProgram() {
-        return program;
+        return this.program;
     }
 
     public List<Card> getHandCard() {
-        return handCard;
+        return this.handCard;
     }
 
     public List<Block> getBlocks() {
-        return blocks;
+        return this.blocks;
     }
 
 //    public Card getDeck() {
@@ -60,7 +60,7 @@ public class Player extends Cell {
 //    }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     private static Card pickCardFromDeck() {

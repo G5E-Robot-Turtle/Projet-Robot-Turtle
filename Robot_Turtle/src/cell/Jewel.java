@@ -9,7 +9,7 @@ public class Jewel extends Cell {
     public Jewel() {
     }
 
-    public void plawerWin() {
+    public void playerWin() {
 
     }
 

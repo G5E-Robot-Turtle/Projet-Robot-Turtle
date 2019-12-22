@@ -6,17 +6,17 @@ public class StoneWall {
     private String name = "Mur de pierre";
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public StoneWall() {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public boolean isDestructible() {
-        return isDestructible;
+        return this.isDestructible;
     }
 }

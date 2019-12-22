@@ -18,11 +18,11 @@ public class LaserCard implements Card {
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
 }

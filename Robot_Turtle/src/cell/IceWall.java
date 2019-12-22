@@ -13,7 +13,7 @@ public class IceWall extends Block {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public boolean isDestructible() {
