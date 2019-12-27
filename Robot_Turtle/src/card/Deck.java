@@ -24,7 +24,7 @@ public class Deck {
         while (deck.size() < 37) {
             do {
                 random = (int) (Math.random() * (nbCardMax));   //donne un entier tel que   0 <= entier <nbCardMax
-            } while (mixedCard[random] != 0);     //exemple si mixedCard[random] == 1, alors la boucle regénère un nombre aléatoire
+            } while (mixedCard[random] != 0);     //exemple si mixedCard[random] == 1, alors la boucle génère un autre nombre aléatoire
 
             if (random < nbBlueCard) {
                 deck.add(new BlueCard());
@@ -35,9 +35,19 @@ public class Deck {
             } else {      //  (nbCardMax-nbLaserCard-1) < random < (nbCardMax)
                 deck.add(new LaserCard());
             }
-            mixedCard[random] = 1;   //pour pas que le cas actuel de random se répète (éviter deux fois random = 5 par exemple)
+            mixedCard[random] = 1;   //pour pas que l'entier actuel de random soit réétudié (éviter d'étudier deux fois le cas random = 5 par exemple)
+                                     //en effet, le do while regénèrera un autre entier.
         }
 
         return deck;
+    }
+    public void showDeck(){
+        System.out.println("Deck size : "+deck.size());
+        for (Card card : deck) {
+            System.out.println(card);
+        }
+    }
+    public Card pick(){
+        return this.deck.pop();
     }
 }
