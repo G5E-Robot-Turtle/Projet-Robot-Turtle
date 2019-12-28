@@ -1,8 +1,8 @@
 package card;
 
 public class BlueCard implements Card {
-    private String name = "Carte Bleu";
-    private String description = "Fait avancer la tortue d'une case";
+    private String name = "Blue Card";
+    private String description = "Make the turtle move one square forward.";
 
     public BlueCard() {
     }

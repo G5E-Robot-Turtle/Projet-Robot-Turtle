@@ -1,8 +1,8 @@
 package card;
 
 public class LaserCard implements Card {
-    private String name = "Carte Laser";
-    private String description = "Attaque le premier obstacle sur le chemin, attention si l'obstacle est un Joyau, le laser se réfléchit.";
+    private String name = "Laser Card";
+    private String description = "Attack the first obstacle on the way, be careful if the obstacle is a Jewel, the laser is reflected.";
 
     public LaserCard() {    //constructeur par défaut
         this.name = name;   //mettre getName() si y'a un bug

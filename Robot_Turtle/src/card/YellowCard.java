@@ -1,8 +1,8 @@
 package card;
 
 public class YellowCard implements Card {
-    private String name = "Carte jaune";
-    private String description = "Fait tourner la tortue de 90° dans le sens anti-horaire";
+    private String name = "Yellow Card";
+    private String description = "Rotate the turtle 90° anticlockwise.";
 
     public YellowCard() {
         this.name = name;   //mettre getName() si y'a un bug

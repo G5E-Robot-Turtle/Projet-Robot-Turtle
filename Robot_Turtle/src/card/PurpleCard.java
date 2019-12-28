@@ -4,8 +4,8 @@ import cell.Direction;
 import cell.Player;
 
 public class PurpleCard implements Card {
-    private String name = "Carte violette";
-    private String description = "Fait tourner la tortue de 90° dans le sens horaire";
+    private String name = "Purple Card";
+    private String description = "Rotate the turtle 90° clockwise";
 
 
     public PurpleCard() {
