@@ -9,7 +9,7 @@ public class Grid {
 
 
     public Grid() {                               //plateau 8*8
-        initGrid();
+
     }
 
 
@@ -17,24 +17,60 @@ public class Grid {
         return grid;
     }
 
-    public void initGrid() {  //  pour 2 joueur, à enlever pour plus tard éventuellement
-        Player player1 = new Player();             //test
-        Player player2 = new Player("Turtle", "red", 2, new int[]{0, 5, 0, 5});
+    public void initGrid(Player player1, Player player2) {  //  pour 2 joueurs
         Jewel jewel = new Jewel();
         Empty empty = new Empty();
-
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
                 grid[i][j] = empty;
             }
         }
-        grid[player1.getPositionY()][player1.getPositionX()] = player1;
-        grid[player2.getPositionY()][player2.getPositionX()] = player2;
+        placePlayerInGrid(player1);
+        placePlayerInGrid(player2);
         grid[7][3] = jewel;    //Jewel ne bougera pas, donc pas besoin de mettre des attributs positions dans Jewel ?
-//        displayGrid(line, column);
     }
 
-    public void initGrid(int nbJoueur) {  //  pour 2 à 4  joueurs
+    public void placePlayerInGrid(Player player){
+        this.grid[player.getPositionY()][player.getPositionX()] = player;
+    }
+
+    public void initGrid(Player player1, Player player2, Player player3) {  //  pour 3 joueurs
+        Jewel jewel1 = new Jewel();
+        Jewel jewel2 = new Jewel();
+        Jewel jewel3 = new Jewel();
+        Empty empty = new Empty();
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                grid[i][j] = empty;
+            }
+        }
+        placePlayerInGrid(player1);
+        placePlayerInGrid(player2);
+        placePlayerInGrid(player3);
+        grid[7][0] = jewel1;    //Jewel ne bougera pas, donc pas besoin de mettre des attributs positions dans Jewel ?
+        grid[7][3] = jewel2;
+        grid[7][6] = jewel3;
+    }
+
+    public void initGrid(Player player1, Player player2, Player player3, Player player4) {  //  pour 4 joueurs
+        Jewel jewel1 = new Jewel();
+        Jewel jewel2 = new Jewel();
+        Empty empty = new Empty();
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                grid[i][j] = empty;
+            }
+        }
+        placePlayerInGrid(player1);
+        placePlayerInGrid(player2);
+        placePlayerInGrid(player3);
+        placePlayerInGrid(player4);
+        grid[7][1] = jewel1;
+        grid[7][6] = jewel2;
+    }
+
+
+/*    public void initGrid(int nbJoueur) {  //  pour 2 à 4  joueurs   //non utilisé finalement, peut être que plus tard on le modifiera
         Player player1 = new Player();
         Player player2 = new Player("Turtle", "red", 2, new int[]{0, 5, 0, 5});   //les deux premières valeurs pour la position actuelle
         //les deux dernières valeurs pour stocker la position initiale
@@ -72,7 +108,7 @@ public class Grid {
                 System.out.println("Nombre de joueurs invalide !");
         }
 //        displayGrid(line, column);
-    }
+    }*/
 
 
     //    public Position getPlayerPosition(Player player){ }    //on garde cette méthode ?

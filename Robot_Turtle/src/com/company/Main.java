@@ -10,8 +10,8 @@ public class Main {
         Player player1 = new Player("Player 1", "Green", 1, new int[]{0, 1, 0, 1});
         Player player2 = new Player("Player 2", "Red", 1, new int[]{0, 5, 0, 5});
         Grid grid = new Grid();
-
-//        grid[player1.setPositionX()]
+        grid.initGrid(player1, player2);
+//        grid[player1.getPositionY()][player1.getPositionX()]
         player1.pickCardFromDeck();
 //        player1.addToProgram();
 //        player1.showProgram();
