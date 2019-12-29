@@ -28,8 +28,8 @@ public class Grid {
                 grid[i][j] = empty;
             }
         }
-        grid[player1.getPositionX()][player1.getPositionY()] = player1;
-        grid[player2.getPositionX()][player2.getPositionY()] = player2;
+        grid[player1.getPositionY()][player1.getPositionX()] = player1;
+        grid[player2.getPositionY()][player2.getPositionX()] = player2;
         grid[7][3] = jewel;    //Jewel ne bougera pas, donc pas besoin de mettre des attributs positions dans Jewel ?
 //        displayGrid(line, column);
     }
@@ -47,8 +47,8 @@ public class Grid {
         }
         switch (nbJoueur) {
             case 2:
-                grid[player1.getPositionX()][player1.getPositionY()] = player1;
-                grid[player2.getPositionX()][player2.getPositionY()] = player2;
+                grid[player1.getPositionY()][player1.getPositionX()] = player1;     //attention, getPositionY donne bien la ligne et getPositionX la colonne !
+                grid[player2.getPositionY()][player2.getPositionX()] = player2;
                 grid[7][3] = jewel;
                 //placer des murs en colonne 7 ligne 0 à 7
                 displayGrid(line, column);
@@ -58,8 +58,8 @@ public class Grid {
                 //créer jewel 2 et 3
                 player1.setPosition(new int[]{0, 0, 0, 0});
                 player2.setPosition(new int[]{0, 3, 0, 3});
-                grid[player1.getPositionX()][player1.getPositionY()] = player1;
-                grid[player2.getPositionX()][player2.getPositionY()] = player2;
+                grid[player1.getPositionY()][player1.getPositionX()] = player1;
+                grid[player2.getPositionY()][player2.getPositionX()] = player2;
                 //faire pour player3
                 grid[7][0] = jewel;
                 //faire pour les deux autres jewel
@@ -79,8 +79,8 @@ public class Grid {
     public void addCellObject(Position position) {    //return une Position ?, à compléter
     }
 
-    public void makeEmpty(int x, int y) {
-        grid[x][y] = new Empty();   //peut faire un problème d'affichage lors du passage en graphique ? c'est un nouvel objet Empty ici
+    public void makeEmpty(int line, int column) {
+        grid[line][column] = new Empty();   //peut faire un problème d'affichage lors du passage en graphique ? c'est un nouvel objet Empty ici
     }
 
     public void displayGrid(int line, int column) {
@@ -93,8 +93,8 @@ public class Grid {
     }
 
     public void updateGrid(int line, int column, Player player1) {
-        makeEmpty(player1.getPreviousPositionX(), player1.getPreviousPositionY());
-        grid[player1.getPositionX()][player1.getPositionY()] = player1;
+        makeEmpty(player1.getPreviousPositionY(), player1.getPreviousPositionX());
+        grid[player1.getPositionY()][player1.getPositionX()] = player1;
 
         displayGrid(line, column);
     }

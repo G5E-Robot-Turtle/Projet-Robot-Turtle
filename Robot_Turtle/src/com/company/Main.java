@@ -11,16 +11,15 @@ public class Main {
         Player player2 = new Player("Player 2", "Red", 1, new int[]{0, 5, 0, 5});
         Grid grid = new Grid();
 
+//        grid[player1.setPositionX()]
         player1.pickCardFromDeck();
 //        player1.addToProgram();
 //        player1.showProgram();
         player1.addToProgram();
         player1.play();
-        System.out.println("maintenant on a");
         player1.showHandCard();
         player1.showDiscard();
         player1.showProgram();
-        player1.executeProgram();
 //        grid.displayGrid(8,8);
         grid.updateGrid(8, 8, player1);
     }

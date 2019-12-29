@@ -18,9 +18,10 @@ public class Player extends Cell {
     private Deck deck = new Deck();
     private String name = "Turtle";
     private Scanner scanner = new Scanner(System.in);
-    private int[] position = {0, 1, 0, 1};   //position[0] = abscisse, position[1] = ordonnée, ici par défaut le joueur est à la ligne 0 et à la colonne 1
-    private int[] previousPosition ={0, 1};  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
-    //position[2] = abscisse de départ, position[3] = ordonnée de départ, utilise lorsque la tortue se prend un laser par exemple
+    private int[] position = {0, 1, 0, 1};   //position[0] = ligne, position[1] = colonne, ici par défaut le joueur est à la ligne 0 et à la colonne 1
+    //position[2] = ligne de départ, position[3] = colonne de départ, utilise lorsque la tortue se prend un laser par exemple
+    private int[] previousPosition = {0, 1};  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
+
     public Player() {
 
     } //constructeur par défaut
@@ -41,20 +42,20 @@ public class Player extends Cell {
         this.position = position;
     }
 
-    public int getPositionX() {
-        return this.position[0];
-    }
-
-    public void setPositionX(int x) {
-        this.position[0] = x;
-    }
-
     public int getPositionY() {
-        return this.position[1];
+        return this.position[0];
+    }         //attention aux confusions !
+
+    public void setPositionY(int line) {
+        this.position[0] = line;
     }
 
-    public void setPositionY(int y) {
-        this.position[1] = y;
+    public int getPositionX() {
+        return this.position[1];
+    }         //attention aux confusions !
+
+    public void setPositionX(int column) {
+        this.position[1] = column;
     }
 
     public int[] getPreviousPosition() {
@@ -64,17 +65,21 @@ public class Player extends Cell {
     public void setPreviousPosition(int[] previousPosition) {
         this.previousPosition = previousPosition;
     }
-    public int getPreviousPositionX() {
+
+    public int getPreviousPositionY() {
         return this.previousPosition[0];
     }
-    public void setPreviousPositionX(int x) {
-        this.previousPosition[0] = x;
+
+    public void setPreviousPositionY(int line) {
+        this.previousPosition[0] = line;
     }
-    public int getPreviousPositionY() {
+
+    public int getPreviousPositionX() {
         return this.previousPosition[1];
     }
-    public void setPreviousPositionY(int y) {
-        this.previousPosition[1] = y;
+
+    public void setPreviousPositionX(int column) {
+        this.previousPosition[1] = column;
     }
 
 
@@ -191,7 +196,7 @@ public class Player extends Cell {
                 //build a wall
                 break;
             case 3:
-                //execute the program
+                executeProgram();
                 break;
         }
         manageHandCard();
@@ -231,6 +236,7 @@ public class Player extends Cell {
                 System.out.println("New direction : " + this.currentDirection);
             } else if (actualCard.equals("card.LaserCard")) {
                 System.out.println("BOOM !");
+                //à remplir
             }
         }
 
@@ -241,39 +247,50 @@ public class Player extends Cell {
         int gridColumn = 8;
         switch (this.currentDirection) {
             case SOUTH:
-                if (getPositionX() + 1 < gridLine) {
+                if (getPositionY() + 1 < gridLine) {
                     //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionX(getPositionX() + 1);
-                } else {        //cas à traiter, la tortue "sort du plateau"
-
+                    setPositionY(getPositionY() + 1);
+                } else {        //la tortue "sort du plateau"
+                    goToInitialPosition();
                 }
 
                 break;
             case EAST:
-                if (getPositionY() + 1 < gridColumn) {
+                if (getPositionX() + 1 < gridColumn) {
                     //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionY(getPositionY() + 1);
-                } else {              //cas à traiter, la tortue "sort du plateau"
-
+                    setPositionX(getPositionX() + 1);
+                } else {              //la tortue "sort du plateau"
+                    goToInitialPosition();
                 }
                 break;
             case NORTH:
-                if (getPositionX() - 1 > -1) {
-                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionX(getPositionX() - 1);
-                } else {        //cas à traiter, la tortue "sort du plateau"
-
-                }
-                break;
-            case WEST:
                 if (getPositionY() - 1 > -1) {
                     //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
                     setPositionY(getPositionY() - 1);
-                } else {        //cas à traiter, la tortue "sort du plateau"
-
+                } else {        //la tortue "sort du plateau"
+                    goToInitialPosition();
+                }
+                break;
+            case WEST:
+                if (getPositionX() - 1 > -1) {
+                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
+                    setPositionX(getPositionX() - 1);
+                } else {        //la tortue "sort du plateau"
+                    goToInitialPosition();
                 }
                 break;
         }
     }
+
+    private void goToInitialPosition() {
+        System.out.println("Outch ! =( ");
+        setPositionY(position[2]);
+        setPositionX(position[3]);
+        this.currentDirection = Direction.SOUTH; //prendre la direction initiale
+    }
+    public void checkTurtle(int line, int column){
+
+    }
+
 
 }

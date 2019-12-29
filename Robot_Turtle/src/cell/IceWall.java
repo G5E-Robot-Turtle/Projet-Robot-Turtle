@@ -2,8 +2,8 @@ package cell;
 
 public class IceWall extends Block {
     private boolean isDestructible = true;
-    private String description = "Je bloque le chemin, mais je suis destructible par le laser";
-    private String name = "Mur de glace";
+    private String description = "I block the way, but I'm destructible by the laser";
+    private String name = "Ice wall";
 
     public String getDescription() {
         return description;

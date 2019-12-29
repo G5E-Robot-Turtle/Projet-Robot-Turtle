@@ -1,6 +1,6 @@
 package com.company;
 
-public class Position {
+public class Position {   //à enlever ??
     private int x;
     private int y;
 

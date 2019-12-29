@@ -7,7 +7,7 @@ public enum Direction {
     WEST;
 
     public Direction changeDirClock() {
-        switch (this.name()){
+        switch (this.name()) {
             case "SOUTH":
                 return this.WEST;
             case "WEST":
@@ -22,7 +22,7 @@ public enum Direction {
     }
 
     public Direction changeDirAntiClock() {
-        switch (this.name()){
+        switch (this.name()) {
             case "SOUTH":
                 return this.EAST;
             case "EAST":

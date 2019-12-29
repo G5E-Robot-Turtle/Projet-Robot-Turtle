@@ -2,8 +2,8 @@ package cell;
 
 public class StoneWall {
     private boolean isDestructible = false;
-    private String description = "Je bloque le chemin, rien ne peut me détruire";
-    private String name = "Mur de pierre";
+    private String description = "I block the way, the laser doesn't destroy me";
+    private String name = "Stone wall";
 
     public String getDescription() {
         return this.description;
