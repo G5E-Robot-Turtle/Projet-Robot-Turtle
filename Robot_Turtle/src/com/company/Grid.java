@@ -27,17 +27,20 @@ public class Grid {
         }
         placePlayerInGrid(player1);
         placePlayerInGrid(player2);
-        grid[7][3] = jewel;    //Jewel ne bougera pas, donc pas besoin de mettre des attributs positions dans Jewel ?
+        placeJewelInGrid(jewel);
     }
 
     public void placePlayerInGrid(Player player){
         this.grid[player.getPositionY()][player.getPositionX()] = player;
     }
+    public void placeJewelInGrid(Jewel jewel){
+        this.grid[jewel.getPositionY()][jewel.getPositionX()] = jewel;
+    }
 
     public void initGrid(Player player1, Player player2, Player player3) {  //  pour 3 joueurs
-        Jewel jewel1 = new Jewel();
-        Jewel jewel2 = new Jewel();
-        Jewel jewel3 = new Jewel();
+        Jewel jewel1 = new Jewel(new int[]{7,0});
+        Jewel jewel2 = new Jewel(new int[]{7,3});
+        Jewel jewel3 = new Jewel(new int[]{7,6});
         Empty empty = new Empty();
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
@@ -47,14 +50,14 @@ public class Grid {
         placePlayerInGrid(player1);
         placePlayerInGrid(player2);
         placePlayerInGrid(player3);
-        grid[7][0] = jewel1;    //Jewel ne bougera pas, donc pas besoin de mettre des attributs positions dans Jewel ?
-        grid[7][3] = jewel2;
-        grid[7][6] = jewel3;
+        placeJewelInGrid(jewel1);
+        placeJewelInGrid(jewel2);
+        placeJewelInGrid(jewel3);
     }
 
     public void initGrid(Player player1, Player player2, Player player3, Player player4) {  //  pour 4 joueurs
-        Jewel jewel1 = new Jewel();
-        Jewel jewel2 = new Jewel();
+        Jewel jewel1 = new Jewel(new int[]{7,1});
+        Jewel jewel2 = new Jewel(new int[]{7,6});
         Empty empty = new Empty();
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
@@ -65,8 +68,8 @@ public class Grid {
         placePlayerInGrid(player2);
         placePlayerInGrid(player3);
         placePlayerInGrid(player4);
-        grid[7][1] = jewel1;
-        grid[7][6] = jewel2;
+        placeJewelInGrid(jewel1);
+        placeJewelInGrid(jewel2);
     }
 
 
@@ -90,7 +93,7 @@ public class Grid {
                 displayGrid(line, column);
                 break;
             case 3:
-                Player player3 = new Player("Turtle", "purple", 3, new int[]{7, 0, 7, 0});
+                Player player3 = new Player("Turtle", "purple", 3, new int[]{0, 6, 0, 6});
                 //créer jewel 2 et 3
                 player1.setPosition(new int[]{0, 0, 0, 0});
                 player2.setPosition(new int[]{0, 3, 0, 3});

@@ -20,17 +20,25 @@ public class Player extends Cell {
     private Scanner scanner = new Scanner(System.in);
     private int[] position = {0, 1, 0, 1};   //position[0] = ligne, position[1] = colonne, ici par défaut le joueur est à la ligne 0 et à la colonne 1
     //position[2] = ligne de départ, position[3] = colonne de départ, utilise lorsque la tortue se prend un laser par exemple
-    private int[] previousPosition = {0, 1};  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
+    private int[] previousPosition = new int[2];  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
+
+    public static TreeMap<Integer, Player> positionPlayers = new TreeMap<>();  //<position, Player> pour savoir  s'il y a un joueur à une telle position
+    //Integer en clé car TreeMap n'accepte pas les tableaux en clé, ni Player
+    //mettre en private ? static pour enregistrer/synchroniser la position de tous les joueurs créés afin de gérer les collisions
 
     public Player() {
-
+        int caseNum = convertPositionToInt(position[0], position[1]);
+        this.positionPlayers.put(caseNum, this);   //enregistrer le joueur et sa position dans la variable static
     } //constructeur par défaut
 
     public Player(String name, String color, int passageOrder, int initialPosition[]) {
         this.name = name;
+
         this.color = color;
         this.passageOrder = passageOrder;
         this.position = initialPosition;
+        int caseNum = convertPositionToInt(initialPosition[0], initialPosition[1]);  // convertit un tableau de position en nombre entier
+        positionPlayers.put(caseNum, this);  //enregistrer le joueur et sa position dans la variable static
     }
 
 
@@ -156,7 +164,7 @@ public class Player extends Cell {
             System.out.println("Which card do you want to add to your program ? (-1 to Stop)");
             while (!handCard.isEmpty()) {
                 showHandCard();
-                int choice = scanner.nextInt();
+                int choice = scanner.nextInt();       //controler si l'utilisateur saisie un décimal
                 if (choice > -1 && choice < handCard.size()) {
                     program.add(handCard.remove(choice));
                 } else if (choice == -1) {
@@ -248,49 +256,90 @@ public class Player extends Cell {
         switch (this.currentDirection) {
             case SOUTH:
                 if (getPositionY() + 1 < gridLine) {
-                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionY(getPositionY() + 1);
+                    if (checkTurtle(getPositionY() + 1, getPositionX())) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
+                        System.out.println("The two turtles go back to their initial position.");
+                        goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY() + 1, getPositionX()))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
+                        goToInitialPosition(this);
+                    } else {       //on peut avancer
+                        communicateNewPosition(this, true, false, 1);
+                    }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition();
+                    goToInitialPosition(this);
                 }
 
                 break;
             case EAST:
                 if (getPositionX() + 1 < gridColumn) {
-                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionX(getPositionX() + 1);
+                    if (checkTurtle(getPositionY(), getPositionX() + 1)) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
+                        System.out.println("The two turtles go back to their initial position.");
+                        goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() + 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
+                        goToInitialPosition(this);
+                    } else {            //on peut avancer
+                        communicateNewPosition(this, false, true, 1);
+                    }
                 } else {              //la tortue "sort du plateau"
-                    goToInitialPosition();
+                    goToInitialPosition(this);
                 }
                 break;
             case NORTH:
                 if (getPositionY() - 1 > -1) {
-                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionY(getPositionY() - 1);
+                    if (checkTurtle(getPositionY() - 1, getPositionX())) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
+                        System.out.println("The two turtles go back to their initial position.");
+                        goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY() - 1, getPositionX()))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
+                        goToInitialPosition(this);
+                    } else {       //on peut avancer
+                        communicateNewPosition(this, true, false, -1);
+                    }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition();
+                    goToInitialPosition(this);
                 }
                 break;
             case WEST:
                 if (getPositionX() - 1 > -1) {
-                    //il faut traiter le cas est-ce qu'il y a un mur ou une tortue, en créant une nouvelle fonction
-                    setPositionX(getPositionX() - 1);
+                    if (checkTurtle(getPositionY(), getPositionX() - 1)) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
+                        System.out.println("The two turtles go back to their initial position.");
+                        goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() - 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
+                        goToInitialPosition(this);
+                    } else {            //on peut avancer
+                        communicateNewPosition(this, false, true, -1);
+                    }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition();
+                    goToInitialPosition(this);
                 }
                 break;
         }
     }
 
-    private void goToInitialPosition() {
+    private void goToInitialPosition(Player player) {
         System.out.println("Outch ! =( ");
-        setPositionY(position[2]);
-        setPositionX(position[3]);
-        this.currentDirection = Direction.SOUTH; //prendre la direction initiale
-    }
-    public void checkTurtle(int line, int column){
-
+        updatePreviousPosition(player);
+        player.setPositionY(player.getPosition()[2]);
+        player.setPositionX(player.getPosition()[3]);
+        player.currentDirection = Direction.SOUTH; //prendre la direction initiale
     }
 
+    //faire une variable static treemap? qui enregistre la position des joueurs pour savoir gérer les collisions
+    // une autre variable static pour entregistrer la position tes murs ?
+
+    public boolean checkTurtle(int line, int column) {
+        return positionPlayers.containsKey(convertPositionToInt(line, column));
+    }
+
+
+    public void updatePreviousPosition(Player player) {
+        player.setPreviousPositionY(player.getPositionY());
+        player.setPreviousPositionX(player.getPositionX());
+    }
+
+    public void communicateNewPosition(Player player, boolean Ymove, boolean Xmove, int value) {    //ne permet pas de bouger sur Y et X en même temps
+        positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
+        updatePreviousPosition(player);
+        if (Ymove) {
+            player.setPositionY(getPositionY() + value);
+        } else if (Xmove) {
+            player.setPositionX(getPositionX() + value);
+        }
+        positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
+    }
 
 }
