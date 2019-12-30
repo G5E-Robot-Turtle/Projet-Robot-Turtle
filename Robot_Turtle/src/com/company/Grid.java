@@ -2,6 +2,8 @@ package com.company;
 
 import cell.*;
 
+import java.util.TreeMap;
+
 public class Grid {
     private int line = 8;
     private int column = 8;
@@ -30,17 +32,18 @@ public class Grid {
         placeJewelInGrid(jewel);
     }
 
-    public void placePlayerInGrid(Player player){
+    public void placePlayerInGrid(Player player) {
         this.grid[player.getPositionY()][player.getPositionX()] = player;
     }
-    public void placeJewelInGrid(Jewel jewel){
+
+    public void placeJewelInGrid(Jewel jewel) {
         this.grid[jewel.getPositionY()][jewel.getPositionX()] = jewel;
     }
 
     public void initGrid(Player player1, Player player2, Player player3) {  //  pour 3 joueurs
-        Jewel jewel1 = new Jewel(new int[]{7,0});
-        Jewel jewel2 = new Jewel(new int[]{7,3});
-        Jewel jewel3 = new Jewel(new int[]{7,6});
+        Jewel jewel1 = new Jewel(new int[]{7, 0});
+        Jewel jewel2 = new Jewel(new int[]{7, 3});
+        Jewel jewel3 = new Jewel(new int[]{7, 6});
         Empty empty = new Empty();
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
@@ -56,8 +59,8 @@ public class Grid {
     }
 
     public void initGrid(Player player1, Player player2, Player player3, Player player4) {  //  pour 4 joueurs
-        Jewel jewel1 = new Jewel(new int[]{7,1});
-        Jewel jewel2 = new Jewel(new int[]{7,6});
+        Jewel jewel1 = new Jewel(new int[]{7, 1});
+        Jewel jewel2 = new Jewel(new int[]{7, 6});
         Empty empty = new Empty();
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
@@ -118,8 +121,15 @@ public class Grid {
     public void addCellObject(Position position) {    //return une Position ?, à compléter
     }
 
-    public void makeEmpty(int line, int column) {
-        grid[line][column] = new Empty();   //peut faire un problème d'affichage lors du passage en graphique ? c'est un nouvel objet Empty ici
+    public void makeEmpty(int line, int column, Player player) {
+        Empty empty = new Empty();
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                if (grid[i][j].getName().equals(player.getName())) {
+                    grid[i][j] = empty;   //peut faire un problème d'affichage lors du passage en graphique ? c'est un nouvel objet Empty ici
+                }
+            }
+        }
     }
 
     public void displayGrid(int line, int column) {
@@ -132,9 +142,10 @@ public class Grid {
     }
 
     public void updateGrid(int line, int column, Player player1) {
-        makeEmpty(player1.getPreviousPositionY(), player1.getPreviousPositionX());
-        grid[player1.getPositionY()][player1.getPositionX()] = player1;
-
+        makeEmpty(line, column, player1);
+        if(!grid[player1.getPositionY()][player1.getPositionX()].getName().equals("Jewel")){
+            grid[player1.getPositionY()][player1.getPositionX()] = player1;
+        }
         displayGrid(line, column);
     }
 

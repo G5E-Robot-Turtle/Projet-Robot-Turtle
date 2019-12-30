@@ -21,7 +21,7 @@ public class Player extends Cell {
     private int[] position = {0, 1, 0, 1};   //position[0] = ligne, position[1] = colonne, ici par défaut le joueur est à la ligne 0 et à la colonne 1
     //position[2] = ligne de départ, position[3] = colonne de départ, utilise lorsque la tortue se prend un laser par exemple
     private int[] previousPosition = new int[2];  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
-
+    private boolean hasWin = false;
     public static TreeMap<Integer, Player> positionPlayers = new TreeMap<>();  //<position, Player> pour savoir  s'il y a un joueur à une telle position
     //Integer en clé car TreeMap n'accepte pas les tableaux en clé, ni Player
     //mettre en private ? static pour enregistrer/synchroniser la position de tous les joueurs créés afin de gérer les collisions
@@ -213,24 +213,30 @@ public class Player extends Cell {
 
     public void manageHandCard() {
         int choice;
-        System.out.println("Do you want to discards your cards before picking new ones ? (1 : Yes ; 0 : No)");
-        do {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
-            choice = scanner.nextInt();
-            if (choice == 1) {
-                addToDiscard();
-                if (handCard.isEmpty()) {  //on peut enlever le if
+        if(!handCard.isEmpty()){
+            System.out.println("Do you want to discards your cards before picking new ones ? (1 : Yes ; 0 : No)");
+            do {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
+                choice = scanner.nextInt();
+                if (choice == 1) {
+                    addToDiscard();
+                    if (handCard.isEmpty()) {  //on peut enlever le if
+                        pickCardFromDeck();
+                    }
+                } else if (choice == 0) {
                     pickCardFromDeck();
+                } else {
+                    System.out.println("Error, please input a correct choice");
                 }
-            } else if (choice == 0) {
-                pickCardFromDeck();
-            } else {
-                System.out.println("Error, please input a correct choice");
-            }
-        } while (!(choice == 0 || choice == 1));
+            } while (!(choice == 0 || choice == 1));
+        } else{   //main vide
+            pickCardFromDeck();
+        }
+
     }
 
     public void executeProgram() {
         while (!program.isEmpty()) {
+            discard.addLast(program.peekFirst());
             String actualCard = program.removeFirst().getClass().getName();
 //            System.out.println(program.removeFirst().getClass().getName());   //on obtient le nom de la Classe (ex: card.BlueCard)
             if (actualCard.equals("card.BlueCard")) {
@@ -238,9 +244,11 @@ public class Player extends Cell {
                 goAhead();
             } else if (actualCard.equals("card.PurpleCard")) {
                 this.currentDirection = direction.changeDirClock();
+                this.direction = this.currentDirection;  //mettre à jour la direction pour la prochaine fois
                 System.out.println("New direction : " + this.currentDirection);
             } else if (actualCard.equals("card.YellowCard")) {
                 this.currentDirection = direction.changeDirAntiClock();
+                this.direction = this.currentDirection;   //mettre à jour la direction pour la prochaine fois
                 System.out.println("New direction : " + this.currentDirection);
             } else if (actualCard.equals("card.LaserCard")) {
                 System.out.println("BOOM !");
@@ -264,7 +272,10 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, 1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition(this);
+                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau (vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après
+                                          // il retourne à la position initiale
+                        goToInitialPosition(this);
+                    }
                 }
 
                 break;
@@ -278,7 +289,9 @@ public class Player extends Cell {
                         communicateNewPosition(this, false, true, 1);
                     }
                 } else {              //la tortue "sort du plateau"
-                    goToInitialPosition(this);
+                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau
+                        goToInitialPosition(this);
+                    }
                 }
                 break;
             case NORTH:
@@ -291,7 +304,9 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, -1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition(this);
+                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau, les joyaux ne sont pas en haut de la grille, mais bon au cas où si on modifie la place des joyaux
+                        goToInitialPosition(this);
+                    }
                 }
                 break;
             case WEST:
@@ -304,7 +319,9 @@ public class Player extends Cell {
                         communicateNewPosition(this, false, true, -1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    goToInitialPosition(this);
+                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau
+                        goToInitialPosition(this);
+                    }
                 }
                 break;
         }
@@ -340,6 +357,14 @@ public class Player extends Cell {
             player.setPositionX(getPositionX() + value);
         }
         positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
+        checkIfWin(player);
+    }
+
+    public void checkIfWin(Player player) {
+        if (positionJewels.containsKey(convertPositionToInt(player.getPositionY(), player.getPositionX()))) {
+            System.out.println("Congratulations ! " + player.getName() + " is qualified !");
+            player.hasWin = true;
+        }
     }
 
 }
