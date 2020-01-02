@@ -11,10 +11,10 @@ public class Player extends Cell {
     private Direction currentDirection = direction;   //direction SUD par défaut
     private int score;
     private int passageOrder;
-    private ArrayDeque program = new ArrayDeque();
+    private ArrayDeque<Card> program = new ArrayDeque<>();
     private List<Card> handCard = new ArrayList<>();
     private List<Block> blocks;
-    private ArrayDeque discard = new ArrayDeque();   //défausse
+    private ArrayDeque<Card> discard = new ArrayDeque<>();   //défausse
     private Deck deck = new Deck();
     private String name = "Turtle";
     private Scanner scanner = new Scanner(System.in);
@@ -41,6 +41,9 @@ public class Player extends Cell {
         positionPlayers.put(caseNum, this);  //enregistrer le joueur et sa position dans la variable static
     }
 
+    public boolean getHasWin(){
+        return this.hasWin;
+    }
 
     public int[] getPosition() {
         return this.position;
@@ -126,7 +129,18 @@ public class Player extends Cell {
     public void pickCardFromDeck() {
         int maximumHandCard = 5;
         while (handCard.size() < maximumHandCard) {
-            handCard.add(deck.pick());
+            if(!deck.isEmpty()){
+                handCard.add(deck.pick());
+            } else{   //le deck est vide
+                if(!discard.isEmpty()){
+                    deck.shuffle(discard);   //on récupère la défausse et la mélange
+                } else {           //deck et défausse vides, tout est dans le programme
+                    System.out.println("You have "+handCard.size()+" hand cards and there isn't anymore card,\nyou need to execute your program.");
+                    break;   //sortir de la boucle
+                }
+
+            }
+
         }
 //        showHandCard();
     }
@@ -164,7 +178,7 @@ public class Player extends Cell {
             System.out.println("Which card do you want to add to your program ? (-1 to Stop)");
             while (!handCard.isEmpty()) {
                 showHandCard();
-                int choice = scanner.nextInt();       //controler si l'utilisateur saisie un décimal
+                int choice = scanner.nextInt();       //il faut controler si l'utilisateur saisie un décimal
                 if (choice > -1 && choice < handCard.size()) {
                     program.add(handCard.remove(choice));
                 } else if (choice == -1) {
@@ -182,7 +196,6 @@ public class Player extends Cell {
                 discard.addLast(handCard.remove(0));   //"déplacer" le premier élément de handCard à chaque fois
             }
         }
-        showHandCard();
     }
 
     public void play() {
@@ -199,6 +212,7 @@ public class Player extends Cell {
         switch (choice) {
             case 1:
                 addToProgram();
+                manageHandCard();
                 break;
             case 2:
                 //build a wall
@@ -207,14 +221,12 @@ public class Player extends Cell {
                 executeProgram();
                 break;
         }
-        manageHandCard();
-
     }
 
     public void manageHandCard() {
         int choice;
         if(!handCard.isEmpty()){
-            System.out.println("Do you want to discards your cards before picking new ones ? (1 : Yes ; 0 : No)");
+            System.out.println("Do you want to discards your hand cards before picking new ones ? (1 : Yes ; 0 : No)");
             do {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
                 choice = scanner.nextInt();
                 if (choice == 1) {

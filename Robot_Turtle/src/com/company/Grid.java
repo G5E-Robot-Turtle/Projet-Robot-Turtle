@@ -2,6 +2,7 @@ package com.company;
 
 import cell.*;
 
+import java.util.List;
 import java.util.TreeMap;
 
 public class Grid {
@@ -14,6 +15,13 @@ public class Grid {
 
     }
 
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
 
     public Cell[][] getGrid() {
         return grid;
@@ -141,12 +149,20 @@ public class Grid {
         }
     }
 
-    public void updateGrid(int line, int column, Player player1) {
+    public void updateGrid(int line, int column, Player player1) {   //actualise la position que d'un seul joueur, une limite quand il y a collision avec un autre joueur
         makeEmpty(line, column, player1);
-        if(!grid[player1.getPositionY()][player1.getPositionX()].getName().equals("Jewel")){
+        if (!grid[player1.getPositionY()][player1.getPositionX()].getName().equals("Jewel")) {   //ne pas effacer Jewel
             grid[player1.getPositionY()][player1.getPositionX()] = player1;
         }
-        displayGrid(line, column);
+    }
+
+    public void updateGridPlayers(int line, int column, List<Player> players) {
+        for (int i = 0; i < players.size(); i++) {
+            makeEmpty(line, column, players.get(i));
+            if (!grid[players.get(i).getPositionY()][players.get(i).getPositionX()].getName().equals("Jewel")) {   //ne pas effacer Jewel
+                grid[players.get(i).getPositionY()][players.get(i).getPositionX()] = players.get(i);
+            }
+        }
     }
 
 
