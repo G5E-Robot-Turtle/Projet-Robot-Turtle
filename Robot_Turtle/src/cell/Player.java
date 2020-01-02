@@ -41,7 +41,7 @@ public class Player extends Cell {
         positionPlayers.put(caseNum, this);  //enregistrer le joueur et sa position dans la variable static
     }
 
-    public boolean getHasWin(){
+    public boolean getHasWin() {
         return this.hasWin;
     }
 
@@ -129,13 +129,13 @@ public class Player extends Cell {
     public void pickCardFromDeck() {
         int maximumHandCard = 5;
         while (handCard.size() < maximumHandCard) {
-            if(!deck.isEmpty()){
+            if (!deck.isEmpty()) {
                 handCard.add(deck.pick());
-            } else{   //le deck est vide
-                if(!discard.isEmpty()){
+            } else {   //le deck est vide
+                if (!discard.isEmpty()) {
                     deck.shuffle(discard);   //on récupère la défausse et la mélange
                 } else {           //deck et défausse vides, tout est dans le programme
-                    System.out.println("You have "+handCard.size()+" hand cards and there isn't anymore card,\nyou need to execute your program.");
+                    System.out.println("You have " + handCard.size() + " hand cards and there isn't anymore card,\nyou need to execute your program.");
                     break;   //sortir de la boucle
                 }
 
@@ -225,9 +225,10 @@ public class Player extends Cell {
 
     public void manageHandCard() {
         int choice;
-        if(!handCard.isEmpty()){
+        if (!handCard.isEmpty()) {
             System.out.println("Do you want to discards your hand cards before picking new ones ? (1 : Yes ; 0 : No)");
-            do {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
+            do
+            {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
                 choice = scanner.nextInt();
                 if (choice == 1) {
                     addToDiscard();
@@ -240,14 +241,14 @@ public class Player extends Cell {
                     System.out.println("Error, please input a correct choice");
                 }
             } while (!(choice == 0 || choice == 1));
-        } else{   //main vide
+        } else {   //main vide
             pickCardFromDeck();
         }
 
     }
 
     public void executeProgram() {
-        while (!program.isEmpty()) {
+        while (!program.isEmpty() && !hasWin) {
             discard.addLast(program.peekFirst());
             String actualCard = program.removeFirst().getClass().getName();
 //            System.out.println(program.removeFirst().getClass().getName());   //on obtient le nom de la Classe (ex: card.BlueCard)
@@ -284,8 +285,8 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, 1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau (vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après
-                                          // il retourne à la position initiale
+                    if (!this.hasWin) {     //si le joueur n'a pas gagné avant de sortir du plateau (vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après
+                        // il retourne à la position initiale
                         goToInitialPosition(this);
                     }
                 }
@@ -301,7 +302,7 @@ public class Player extends Cell {
                         communicateNewPosition(this, false, true, 1);
                     }
                 } else {              //la tortue "sort du plateau"
-                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau
+                    if (!this.hasWin) {     //si le joueur n'a pas gagné avant de sortir du plateau
                         goToInitialPosition(this);
                     }
                 }
@@ -316,7 +317,7 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, -1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau, les joyaux ne sont pas en haut de la grille, mais bon au cas où si on modifie la place des joyaux
+                    if (!this.hasWin) {     //si le joueur n'a pas gagné avant de sortir du plateau, les joyaux ne sont pas en haut de la grille, mais bon au cas où si on modifie la place des joyaux
                         goToInitialPosition(this);
                     }
                 }
@@ -331,7 +332,7 @@ public class Player extends Cell {
                         communicateNewPosition(this, false, true, -1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    if(!this.hasWin){     //si le joueur n'a pas gagné avant de sortir du plateau
+                    if (!this.hasWin) {     //si le joueur n'a pas gagné avant de sortir du plateau
                         goToInitialPosition(this);
                     }
                 }
@@ -341,10 +342,12 @@ public class Player extends Cell {
 
     private void goToInitialPosition(Player player) {
         System.out.println("Outch ! =( ");
+        positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
         updatePreviousPosition(player);
         player.setPositionY(player.getPosition()[2]);
         player.setPositionX(player.getPosition()[3]);
         player.currentDirection = Direction.SOUTH; //prendre la direction initiale
+        positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
     }
 
     //faire une variable static treemap? qui enregistre la position des joueurs pour savoir gérer les collisions
@@ -376,6 +379,7 @@ public class Player extends Cell {
         if (positionJewels.containsKey(convertPositionToInt(player.getPositionY(), player.getPositionX()))) {
             System.out.println("Congratulations ! " + player.getName() + " is qualified !");
             player.hasWin = true;
+
         }
     }
 
