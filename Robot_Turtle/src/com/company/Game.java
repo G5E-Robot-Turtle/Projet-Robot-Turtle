@@ -71,16 +71,16 @@ public class Game {
             default:
                 System.out.println("Error, number of players incorrect !");
         }
-        int nbPlayersStillPlaying = players.size();
+        int nbPlayers = players.size();
+        int nbPlayersHaveWon = 0;
         int round = 0;
         grid.displayGrid(grid.getLine(), grid.getColumn());
 
-        while (nbPlayersStillPlaying > 1) {
-
+        while (nbPlayersHaveWon < nbPlayers - 1) {
             ++round;
             System.out.println("  --  Round " + round + "  --");
             for (int i = 0; i < players.size(); i++) {
-                if (!players.get(i).getHasWin()) {
+                if (!players.get(i).getHasWon()) {     //si le joueur a gagné, il ne joue plus
                     System.out.println("\nPlayer " + players.get(i).getPassageOrder() + " it's your turn !");
                     players.get(i).pickCardFromDeck();
                     players.get(i).play();
@@ -88,6 +88,10 @@ public class Game {
                     grid.updateGridPlayers(grid.getLine(), grid.getColumn(), players);
                     grid.displayGrid(grid.getLine(), grid.getColumn());
                     System.out.println();
+                    if(players.get(i).getHasWon()){   //si le joueur a gagné pendant ce round
+                        nbPlayersHaveWon++;
+                    }
+
                 }
             }
         }

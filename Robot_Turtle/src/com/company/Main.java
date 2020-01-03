@@ -1,8 +1,5 @@
 package com.company;
 
-import card.*;
-import cell.*;
-
 import java.util.Scanner;
 
 public class Main {
