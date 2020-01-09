@@ -165,5 +165,7 @@ public class Grid {
         }
     }
 
-
+    public void setCellGrid(int X, int Y, Cell cell) {
+        this.grid[X][Y] = cell;
+    }
 }
