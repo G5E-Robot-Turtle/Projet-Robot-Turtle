@@ -382,5 +382,32 @@ public class Player extends Cell {
             positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX())); //pour éviter que les tortues retournent à leur case départ si deux tortues vont sur le même joyau
         }
     }
-
+    public void setWall(Grid grid) {
+        Scanner scan = new Scanner(System.in);
+        int wallType;
+        int x;
+        int y;
+        StoneWall stoneWall = new StoneWall();
+        IceWall iceWall = new IceWall();
+        do {
+            System.out.println("Which type of wall do you want to insert?");
+            System.out.println("1 : An icewall");
+            System.out.println("2 : A stonewall");
+            wallType = scan.nextInt();
+        } while (wallType != 1 && wallType != 2);
+        do {
+            System.out.print("In which line do you want to insert this wall?");
+            x = scan.nextInt();
+        } while ((x < 1) || (x > grid.getColumn()));
+        do {
+            System.out.print("In which column do you want to insert this wall?");
+            y = scan.nextInt();
+        } while ((y < 1) || (y > grid.getLine()));
+        if (wallType == 1) {
+            grid.setCellGrid(x, y, iceWall);
+        } else {
+            grid.setCellGrid(x, y, stoneWall);
+        }
+    }
 }
+
