@@ -3,6 +3,7 @@ package cell;
 
 import card.*;
 import jeu.Grid;
+
 import java.util.*;
 
 public class Player extends Cell {
@@ -384,6 +385,7 @@ public class Player extends Cell {
             positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX())); //pour éviter que les tortues retournent à leur case départ si deux tortues vont sur le même joyau
         }
     }
+
     public void setWall(Grid grid) {
         Scanner scan = new Scanner(System.in);
         int wallType;
@@ -411,6 +413,7 @@ public class Player extends Cell {
             grid.setCellGrid(x, y, stoneWall);
         }
     }
+
     public void setWall() {
         Scanner scan = new Scanner(System.in);
         int gridLine = 8;
@@ -452,7 +455,9 @@ public class Player extends Cell {
             if (!isAvailable(pos)) {
                 System.out.println("Unavailable cell, please choose another one!");
             }
-            if(Jewel.isSuRrouded(this.getPositionX(),this.getPositionY(),posArrayBool(8,8),0)){
+            System.out.println(positionPlayers.size());
+            System.out.println(jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
+            if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
                 System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
             }
             System.out.println("NOPE");

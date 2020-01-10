@@ -1,8 +1,6 @@
 package jeu;
 
-import  java.util.Scanner;
-
-import ui.*;
+import java.util.Scanner;
 
 public class Main {
 

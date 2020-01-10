@@ -57,11 +57,9 @@ public abstract class Cell {
                 try {
                     if (positionPlayers.containsKey(convertPositionToInt(i, j))) {
                         tab[i][j][0] = 2;
-                        System.out.println("on est ici");
                     } else {
                         if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Stone wall") {
                             tab[i][j][0] = 1;
-                            System.out.println("ici");
                         } else {
                             if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
                                 tab[i][j][0] = 0;
@@ -74,6 +72,8 @@ public abstract class Cell {
                 }
             }
         }
+        System.out.println(tab);
+        System.out.println("lllllllllllooooooooooooollllllllllllll");
         return tab;
     }
 }
