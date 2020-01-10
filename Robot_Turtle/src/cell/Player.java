@@ -22,7 +22,6 @@ public class Player extends Cell {
     //position[2] = ligne de départ, position[3] = colonne de départ, utilise lorsque la tortue se prend un laser par exemple
     private int[] previousPosition = new int[2];  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
     private boolean hasWon = false;
-    public static TreeMap<Integer, Player> positionPlayers = new TreeMap<>();  //<position, Player> pour savoir  s'il y a un joueur à une telle position
     //Integer en clé car TreeMap n'accepte pas les tableaux en clé, ni Player
     //mettre en private ? static pour enregistrer/synchroniser la position de tous les joueurs créés afin de gérer les collisions
 

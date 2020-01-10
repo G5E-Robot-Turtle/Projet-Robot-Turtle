@@ -34,12 +34,10 @@ public class Jewel extends Cell {
         return position[1];
     }
 
-    public boolean isSurrouded() {
-        if (isCheck()) {
-
-        }
-        return true;
-    }
+   /* public void isSurrouded(int i, int j) {
+        int quoi = tableau[i,j][0];
+        int alreadyCheck = tableau[i,j][1]
+    }*/
 
     public String getName() {
         return this.name;
