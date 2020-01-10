@@ -462,26 +462,5 @@ public class Player extends Cell {
             nbStone--;
         }
     }
-
-    public int[][][] posArrayBool(int gridLine, int gridColumn) {
-        int tab[][][] = new int[gridLine][gridColumn][2];
-        for (int i = 0; i <= gridLine - 1; i++) {
-            for (int j = 0; j <= gridColumn; j++) {
-                tab[i][j][1] = 0;
-                if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
-                    tab[i][j][0] = 0;
-                } else {
-                    if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Stone wall") {
-                        tab[i][j][0] = 1;
-                    } else {
-                        if (positionWalls.containsKey(convertPositionToInt(i, j))) {
-                            tab[i][j][0] = 2;
-                        }
-                    }
-                }
-            }
-        }
-        return tab;
-    }
 }
 
