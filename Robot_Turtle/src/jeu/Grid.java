@@ -179,7 +179,15 @@ public class Grid {
             }
         }
     }
-
+    public void updateGridWall(Player player) { //mettre un player pour obtenir positionWalls
+        int line;
+        int column;
+        for (int pos : player.positionWalls.keySet()) {
+            line = pos / 10;
+            column = pos % 10;
+            grid[line][column] = player.positionWalls.get(pos);
+        }
+    }
     public void setCellGrid(int X, int Y, Cell cell) {
         this.grid[X][Y] = cell;
     }
