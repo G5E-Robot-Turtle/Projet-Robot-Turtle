@@ -34,10 +34,38 @@ public class Jewel extends Cell {
         return position[1];
     }
 
-   /* public void isSurrouded(int i, int j) {
-        int quoi = tableau[i,j][0];
-        int alreadyCheck = tableau[i,j][1]
-    }*/
+    //Partie pour vérifier l'encerclement :
+    /*
+    private int playerEncounter = 0;
+
+    public void setIsSurrounded() {
+        for (int i = 0; i < tableau.length(); i++) {
+            for (int j = 0; j < tableau[i].length(); j++) {
+                tableau[i][j][1] = false;
+            }
+        }
+        playerEncounter = 0;
+    }
+
+    public void isSurrouded(int i, int j) {
+        int quoi = tableau[i][j][0];
+        boolean alreadyCheck = tableau[i][j][1];
+        if (!alreadyCheck || quoi != 2) {
+            if (quoi == 1) {
+                playerEncounter += 1;
+            }
+            isSurrouded(i+1,j);
+            isSurrouded(i-1,j);
+            isSurrouded(i,j+1);
+            isSurrouded(i,j-1);
+        }
+    }
+
+    public void surround() {
+
+    }
+    */
+    //fin de vérif encerclement
 
     public String getName() {
         return this.name;
