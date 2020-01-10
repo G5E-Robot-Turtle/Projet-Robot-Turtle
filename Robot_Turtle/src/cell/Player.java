@@ -10,6 +10,8 @@ public class Player extends Cell {
     private Direction direction = Direction.SOUTH;
     private Direction currentDirection = direction;   //direction SUD par défaut
     private int score;
+    private int nbIce = 2;
+    private int nbStone = 3;
     private int passageOrder;
     private ArrayDeque<Card> program = new ArrayDeque<>();
     private List<Card> handCard = new ArrayList<>();
@@ -408,6 +410,78 @@ public class Player extends Cell {
         } else {
             grid.setCellGrid(x, y, stoneWall);
         }
+    }
+    public void setWall() {
+        Scanner scan = new Scanner(System.in);
+        int gridLine = 8;
+        int gridColumn = 8;
+        int wallType;
+        int x;
+        int y;
+        int pos;
+        StoneWall stoneWall = new StoneWall();
+        IceWall iceWall = new IceWall();
+        if (nbIce != 0 && nbStone != 0) {
+            do {
+                System.out.println("Which type of wall do you want to insert ?");
+                System.out.println("1 : An icewall");
+                System.out.println("2 : A stonewall");
+                wallType = scan.nextInt();
+            } while (wallType != 1 && wallType != 2);
+        } else {
+            if (nbStone == 0 && nbIce != 0) {
+                wallType = 1;
+            } else {
+                if (nbStone != 0 && nbIce == 0) {
+                    wallType = 2;
+                } else {
+                    wallType = 0;
+                }
+            }
+        }
+        do {
+            do {
+                System.out.print("In which line do you want to insert this wall?");
+                x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+            } while ((x < 0) || (x > gridColumn - 1));
+            do {
+                System.out.print("In which column do you want to insert this wall?");
+                y = scan.nextInt() - 1;
+            } while ((y < 0) || (y > gridLine - 1));
+            pos = convertPositionToInt(x, y);
+            if (!isAvailable(pos)) {
+                System.out.println("Unavailable cell, please choose another one!");
+            }
+        } while (!isAvailable(pos));
+        if (wallType == 1) {
+            positionWalls.put(pos, iceWall);
+            nbIce--;
+        }
+        if (wallType == 2) {
+            positionWalls.put(pos, stoneWall);
+            nbStone--;
+        }
+    }
+
+    public int[][][] posArrayBool(int gridLine, int gridColumn) {
+        int tab[][][] = new int[gridLine][gridColumn][2];
+        for (int i = 0; i <= gridLine - 1; i++) {
+            for (int j = 0; j <= gridColumn; j++) {
+                tab[i][j][1] = 0;
+                if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
+                    tab[i][j][0] = 0;
+                } else {
+                    if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Stone wall") {
+                        tab[i][j][0] = 1;
+                    } else {
+                        if (positionWalls.containsKey(convertPositionToInt(i, j))) {
+                            tab[i][j][0] = 2;
+                        }
+                    }
+                }
+            }
+        }
+        return tab;
     }
 }
 
