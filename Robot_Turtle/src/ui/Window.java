@@ -32,70 +32,74 @@ public class Window extends JFrame {
 
         if (nbPlayers == 2) {
             Cell turtle1 = new Cell("turtle1");  //nom de l'image à charger en paramètre du constructeur
-            gridContent.remove(emptyCells[0][1]);
-            gbc.gridx = 1;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle1, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle1, gbc, 1, 0);  //cette fonction remplace les 4 lignes en commentaire ci-dessous
+//            gridContent.remove(emptyCells[0][1]);
+//            gbc.gridx = 1;  //On positionne la case de départ du composant
+//            gbc.gridy = 0;
+//            gridContent.add(turtle1, gbc);
 
             Cell turtle2 = new Cell("turtle2");
-            gridContent.remove(emptyCells[0][5]);
-            gbc.gridx = 5;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle2, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle2, gbc, 5, 0);
 
             Cell jewel = new Cell("jewelGreen");
-            gridContent.remove(emptyCells[7][3]);
-            gbc.gridx = 3;  //On positionne la case de départ du composant
-            gbc.gridy = 7;
-            gridContent.add(jewel, gbc);
+            putCellIntoPosition(gridContent, emptyCells, jewel, gbc, 3, 7);
+
+            for (int line = 0; line < 8; line++) {    //mettre les murs
+                Cell stoneWall = new Cell("WALL");
+                putCellIntoPosition(gridContent, emptyCells, stoneWall, gbc, 7, line);
+            }
 
         } else if (nbPlayers == 3) {
             Cell turtle1 = new Cell("turtle1");  //nom de l'image à charger en paramètre du constructeur
-            gridContent.remove(emptyCells[0][0]);
-            gbc.gridx = 0;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle1, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle1, gbc, 0, 0);  //cette fonction remplace les 4 lignes en commentaire ci-dessous
+//            gridContent.remove(emptyCells[0][1]);
+//            gbc.gridx = 0;  //On positionne la case de départ du composant
+//            gbc.gridy = 0;
+//            gridContent.add(turtle1, gbc);
 
             Cell turtle2 = new Cell("turtle2");
-            gridContent.remove(emptyCells[0][3]);
-            gbc.gridx = 3;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle2, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle2, gbc, 3, 0);
 
             Cell turtle3 = new Cell("turtle3");
-            gridContent.remove(emptyCells[0][6]);
-            gbc.gridx = 6;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle3, gbc);
-        } else if (nbPlayers == 4){
+            putCellIntoPosition(gridContent, emptyCells, turtle3, gbc, 6, 0);
+
+            Cell jewel = new Cell("jewelRed");
+            putCellIntoPosition(gridContent, emptyCells, jewel, gbc, 0, 7);
+
+            Cell jewel2 = new Cell("jewelGreen");
+            putCellIntoPosition(gridContent, emptyCells, jewel2, gbc, 3, 7);
+
+            Cell jewel3 = new Cell("jewelBlue");
+            putCellIntoPosition(gridContent, emptyCells, jewel3, gbc, 6, 7);
+
+            for (int line = 0; line < 8; line++) {     //mettre les murs
+                Cell stoneWall = new Cell("WALL");
+                putCellIntoPosition(gridContent, emptyCells, stoneWall, gbc, 7, line);
+            }
+
+        } else if (nbPlayers == 4) {
             Cell turtle1 = new Cell("turtle1");  //nom de l'image à charger en paramètre du constructeur
-            gridContent.remove(emptyCells[0][0]);
-            gbc.gridx = 0;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle1, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle1, gbc, 0, 0);
 
             Cell turtle2 = new Cell("turtle2");
-            gridContent.remove(emptyCells[0][2]);
-            gbc.gridx = 2;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle2, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle2, gbc, 2, 0);
 
             Cell turtle3 = new Cell("turtle3");
-            gridContent.remove(emptyCells[0][5]);
-            gbc.gridx = 5;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle3, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle3, gbc, 5, 0);
 
             Cell turtle4 = new Cell("turtle4");
-            gridContent.remove(emptyCells[0][7]);
-            gbc.gridx = 7;  //On positionne la case de départ du composant
-            gbc.gridy = 0;
-            gridContent.add(turtle4, gbc);
+            putCellIntoPosition(gridContent, emptyCells, turtle4, gbc, 7, 0);
+
+            Cell jewel = new Cell("jewelRed");
+            putCellIntoPosition(gridContent, emptyCells, jewel, gbc, 1, 7);
+
+            Cell jewel3 = new Cell("jewelBlue");
+            putCellIntoPosition(gridContent, emptyCells, jewel3, gbc, 6, 7);
         }
 
 
-            //On ajoute le conteneur au JFrame
-            this.setContentPane(gridContent);
+        //On ajoute le conteneur au JFrame
+        this.setContentPane(gridContent);
         this.setVisible(true);
 
     }
@@ -107,7 +111,7 @@ public class Window extends JFrame {
                 cellEmpty.setBackground(Color.WHITE);
                 cellEmpty.setPreferredSize(new Dimension(cellSize, cellSize));
                 cellEmpty.setBorder(BorderFactory.createLineBorder(Color.black));   //encadrer en noir la cellule
-                emptyCells[i][j] = cellEmpty;
+                emptyCells[i][j] = cellEmpty;               //cellEmpty est une cellule blanche encadré en noir
             }
         }
     }
@@ -125,7 +129,7 @@ public class Window extends JFrame {
         }
     }
 
-    public void putCellIntoPosition(JPanel gridContent, JPanel[][] emptyCells, Cell cell, GridBagConstraints gbc, int x, int y){
+    public void putCellIntoPosition(JPanel gridContent, JPanel[][] emptyCells, Cell cell, GridBagConstraints gbc, int x, int y) {
         gridContent.remove(emptyCells[y][x]);
         gbc.gridx = x;  //On positionne la case de départ du composant
         gbc.gridy = y;
