@@ -29,9 +29,16 @@ public class Grid {
     public void initGrid(Player player1, Player player2) {  //  pour 2 joueurs
         Jewel jewel = new Jewel();
         Empty empty = new Empty();
+        int pos;
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
-                grid[i][j] = empty;
+                if (j == 7) {
+                    grid[i][j] = stoneWall;
+                    pos = 10 * i + j;
+                    player1.positionWalls.put(pos, stoneWall);
+                } else {
+                    grid[i][j] = empty;
+                }
             }
         }
         placePlayerInGrid(player1);
@@ -52,9 +59,16 @@ public class Grid {
         Jewel jewel2 = new Jewel(new int[]{7, 3});
         Jewel jewel3 = new Jewel(new int[]{7, 6});
         Empty empty = new Empty();
+        int pos;
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
-                grid[i][j] = empty;
+                if (j == 7) {
+                    grid[i][j] = stoneWall;
+                    pos = 10 * i + j;
+                    player1.positionWalls.put(pos, stoneWall);
+                } else {
+                    grid[i][j] = empty;
+                }
             }
         }
         placePlayerInGrid(player1);
