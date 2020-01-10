@@ -1,6 +1,6 @@
-package com.company;
+package jeu;
 
-import java.util.Scanner;
+import  java.util.Scanner;
 
 import ui.*;
 

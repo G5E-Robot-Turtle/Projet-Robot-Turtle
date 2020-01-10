@@ -1,4 +1,4 @@
-package com.company;
+package jeu;
 
 import cell.*;
 import ui.*;
