@@ -62,6 +62,34 @@ public class Jewel extends Cell {
         }
     }
 
+    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
+        int quoi = tableau[i][j][0];
+        int alreadyCheck = tableau[i][j][1];
+        if (alreadyCheck == 1 && quoi != 1) {
+            if (quoi == 2) {
+                playerEncounter += 1;
+                System.out.println("réussite");
+            }
+            tableau[i][j][1] = 0;
+            if (i != 7) {
+                isSuRrouded(i + 1, j, tableau, playerEncounter);
+            }
+            if (i != 0) {
+                isSuRrouded(i - 1, j, tableau, playerEncounter);
+            }
+            if (j != 7) {
+                isSuRrouded(i, j + 1, tableau, playerEncounter);
+            }
+            if (j != 0) {
+                isSuRrouded(i, j - 1, tableau, playerEncounter);
+            }
+        }
+        if (playerEncounter == positionPlayers.size()) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean surround() {
         if (playerEncounter == positionPlayers.size()) {
             return true;

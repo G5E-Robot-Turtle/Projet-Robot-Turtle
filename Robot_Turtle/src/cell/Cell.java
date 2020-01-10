@@ -53,7 +53,7 @@ public abstract class Cell {
         int tab[][][] = new int[gridLine][gridColumn][2];
         for (int i = 0; i < gridLine - 1; i++) {
             for (int j = 0; j < gridColumn; j++) {
-                tab[i][j][1] = 0;
+                tab[i][j][1] = 1;
                 try {
                     if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
                         tab[i][j][0] = 0;
@@ -63,6 +63,7 @@ public abstract class Cell {
                         } else {
                             if (positionPlayers.containsKey(convertPositionToInt(i, j))) {
                                 tab[i][j][0] = 2;
+                                System.out.println("on est ici");
                             }
                         }
                     }

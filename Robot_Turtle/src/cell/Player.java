@@ -452,6 +452,10 @@ public class Player extends Cell {
             if (!isAvailable(pos)) {
                 System.out.println("Unavailable cell, please choose another one!");
             }
+            if(Jewel.isSuRrouded(this.getPositionX(),this.getPositionY(),posArrayBool(8,8),0)){
+                System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+            }
+            System.out.println("NOPE");
         } while (!isAvailable(pos));
         if (wallType == 1) {
             positionWalls.put(pos, iceWall);
