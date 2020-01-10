@@ -29,6 +29,7 @@ public class Grid {
     public void initGrid(Player player1, Player player2) {  //  pour 2 joueurs
         Jewel jewel = new Jewel();
         Empty empty = new Empty();
+        StoneWall stoneWall = new StoneWall();
         int pos;
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
@@ -59,6 +60,7 @@ public class Grid {
         Jewel jewel2 = new Jewel(new int[]{7, 3});
         Jewel jewel3 = new Jewel(new int[]{7, 6});
         Empty empty = new Empty();
+        StoneWall stoneWall = new StoneWall();
         int pos;
         for (int i = 0; i < line; i++) {
             for (int j = 0; j < column; j++) {
