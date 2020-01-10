@@ -216,7 +216,7 @@ public class Player extends Cell {
                 addToProgram();
                 break;
             case 2:
-                //build a wall
+                setWall();
                 break;
             case 3:
                 executeProgram();
