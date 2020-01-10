@@ -9,9 +9,18 @@ public abstract class Cell {
     protected Empty empty;
     protected String name = "I'm a cell";
     public static TreeMap<Integer, Jewel> positionJewels = new TreeMap<>();
+    protected boolean Check = false;
 
     public void isEmpty() { // à enlever ?
 
+    }
+
+    public void setCheck(boolean check) {
+        Check = check;
+    }
+
+    public boolean isCheck() {
+        return Check;
     }
 
     public String getName() {
