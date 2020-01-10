@@ -1,6 +1,7 @@
 package com.company;
 
 import cell.*;
+import ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,12 @@ public class Game {
 
                 }
             }
+        }
+    }
+
+    public Game(boolean isGraphic, int nbPlayers){
+        if(isGraphic){
+            Window window = new Window(nbPlayers);
         }
     }
 }
