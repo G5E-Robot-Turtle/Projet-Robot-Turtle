@@ -179,7 +179,7 @@ public class Grid {
             }
         }
     }
-    public void updateGridWall(Player player) { //mettre un player pour obtenir positionWalls
+    public void updateGridWall(Empty player) { //mettre un player pour obtenir positionWalls
         int line;
         int column;
         for (int pos : player.positionWalls.keySet()) {

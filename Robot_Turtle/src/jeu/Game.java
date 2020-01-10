@@ -79,6 +79,7 @@ public class Game {
 
         while (nbPlayersHaveWon < nbPlayers - 1) {
             ++round;
+            Empty empty = new Empty();
             System.out.println("  --  Round " + round + "  --");
             for (int i = 0; i < players.size(); i++) {
                 if (!players.get(i).getHasWon()) {     //si le joueur a gagné, il ne joue plus
@@ -86,6 +87,7 @@ public class Game {
                     players.get(i).pickCardFromDeck();
                     players.get(i).play();
 //                    grid.updateGrid(grid.getLine(), grid.getColumn(), players.get(i));
+                    grid.updateGridWall(empty);
                     grid.updateGridPlayers(grid.getLine(), grid.getColumn(), players);
                     grid.displayGrid(grid.getLine(), grid.getColumn());
                     System.out.println();
