@@ -3,6 +3,7 @@ package cell;
 
 import card.*;
 import jeu.Grid;
+
 import java.util.*;
 
 public class Player extends Cell {
@@ -10,6 +11,8 @@ public class Player extends Cell {
     private Direction direction = Direction.SOUTH;
     private Direction currentDirection = direction;   //direction SUD par défaut
     private int score;
+    private int nbIce = 2;
+    private int nbStone = 3;
     private int passageOrder;
     private ArrayDeque<Card> program = new ArrayDeque<>();
     private List<Card> handCard = new ArrayList<>();
@@ -214,7 +217,7 @@ public class Player extends Cell {
                 addToProgram();
                 break;
             case 2:
-                //build a wall
+                setWall();
                 break;
             case 3:
                 executeProgram();
@@ -382,6 +385,7 @@ public class Player extends Cell {
             positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX())); //pour éviter que les tortues retournent à leur case départ si deux tortues vont sur le même joyau
         }
     }
+
     public void setWall(Grid grid) {
         Scanner scan = new Scanner(System.in);
         int wallType;
@@ -407,6 +411,64 @@ public class Player extends Cell {
             grid.setCellGrid(x, y, iceWall);
         } else {
             grid.setCellGrid(x, y, stoneWall);
+        }
+    }
+
+    public void setWall() {
+        Scanner scan = new Scanner(System.in);
+        int gridLine = 8;
+        int gridColumn = 8;
+        int wallType;
+        int x;
+        int y;
+        int pos;
+        StoneWall stoneWall = new StoneWall();
+        IceWall iceWall = new IceWall();
+        if (nbIce != 0 && nbStone != 0) {
+            do {
+                System.out.println("Which type of wall do you want to insert ?");
+                System.out.println("1 : An icewall");
+                System.out.println("2 : A stonewall");
+                wallType = scan.nextInt();
+            } while (wallType != 1 && wallType != 2);
+        } else {
+            if (nbStone == 0 && nbIce != 0) {
+                wallType = 1;
+            } else {
+                if (nbStone != 0 && nbIce == 0) {
+                    wallType = 2;
+                } else {
+                    wallType = 0;
+                }
+            }
+        }
+        do {
+            do {
+                System.out.print("In which line do you want to insert this wall?");
+                x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+            } while ((x < 0) || (x > gridColumn - 1));
+            do {
+                System.out.print("In which column do you want to insert this wall?");
+                y = scan.nextInt() - 1;
+            } while ((y < 0) || (y > gridLine - 1));
+            pos = convertPositionToInt(x, y);
+            if (!isAvailable(pos)) {
+                System.out.println("Unavailable cell, please choose another one!");
+            }
+            System.out.println(positionPlayers.size());
+            System.out.println(jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
+            if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
+                System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+            }
+            System.out.println("NOPE");
+        } while (!isAvailable(pos));
+        if (wallType == 1) {
+            positionWalls.put(pos, iceWall);
+            nbIce--;
+        }
+        if (wallType == 2) {
+            positionWalls.put(pos, stoneWall);
+            nbStone--;
         }
     }
 }

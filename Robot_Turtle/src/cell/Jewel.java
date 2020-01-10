@@ -1,4 +1,5 @@
 package cell;
+
 public class Jewel extends Cell {
     private String description = "I am a Jewel, the turtles that find me will be qualified for the victory !";
     private String name = "Jewel";
@@ -34,13 +35,14 @@ public class Jewel extends Cell {
     }
 
     //Partie pour vérifier l'encerclement :
-    /*
+
     private int playerEncounter = 0;
+    int[][][] tableau = posArrayBool(8,8);
 
     public void setIsSurrounded() {
-        for (int i = 0; i < tableau.length(); i++) {
-            for (int j = 0; j < tableau[i].length(); j++) {
-                tableau[i][j][1] = false;
+        for (int i = 0; i < tableau.length; i++) {
+            for (int j = 0; j < tableau[i].length; j++) {
+                tableau[i][j][1] = 1;
             }
         }
         playerEncounter = 0;
@@ -48,8 +50,8 @@ public class Jewel extends Cell {
 
     public void isSurrouded(int i, int j) {
         int quoi = tableau[i][j][0];
-        boolean alreadyCheck = tableau[i][j][1];
-        if (!alreadyCheck || quoi != 2) {
+        int alreadyCheck = tableau[i][j][1];
+        if (alreadyCheck == 1 || quoi != 2) {
             if (quoi == 1) {
                 playerEncounter += 1;
             }
@@ -60,6 +62,37 @@ public class Jewel extends Cell {
         }
     }
 
+    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
+        System.out.println(i +"  "+ j);
+        int quoi = tableau[i][j][0];
+        int alreadyCheck = tableau[i][j][1];
+        if (alreadyCheck == 1 && quoi != 1) {
+            if (quoi == 2) {
+                playerEncounter += 1;
+                System.out.println("réussite");
+                System.out.println(playerEncounter);
+            }
+            if (playerEncounter == positionPlayers.size()) {
+                System.out.println("WUT");
+                return true;
+            }
+            tableau[i][j][1] = 0;
+            if (i != 7) {
+                return isSuRrouded(i + 1, j, tableau, playerEncounter);
+            }
+            if (i != 0) {
+                return isSuRrouded(i - 1, j, tableau, playerEncounter);
+            }
+            if (j != 7) {
+                return isSuRrouded(i, j + 1, tableau, playerEncounter);
+            }
+            if (j != 0) {
+                return isSuRrouded(i, j - 1, tableau, playerEncounter);
+            }
+        }
+        return false;
+    }
+
     public boolean surround() {
         if (playerEncounter == positionPlayers.size()) {
             return true;
@@ -68,7 +101,7 @@ public class Jewel extends Cell {
             return false;
         }
     }
-    */
+
     //fin de vérif encerclement
 
     public String getName() {
