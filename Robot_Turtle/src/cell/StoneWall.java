@@ -1,6 +1,6 @@
 package cell;
 
-public class StoneWall {
+public class StoneWall extends Block {
     private boolean isDestructible = false;
     private String description = "I block the way, the laser doesn't destroy me";
     private String name = "Stone wall";
