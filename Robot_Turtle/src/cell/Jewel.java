@@ -1,5 +1,4 @@
 package cell;
-
 public class Jewel extends Cell {
     private String description = "I am a Jewel, the turtles that find me will be qualified for the victory !";
     private String name = "Jewel";
@@ -61,8 +60,13 @@ public class Jewel extends Cell {
         }
     }
 
-    public void surround() {
-
+    public boolean surround() {
+        if (playerEncounter == positionPlayers.size()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     */
     //fin de vérif encerclement
