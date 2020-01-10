@@ -2,7 +2,7 @@ package cell;
 //package Card;
 
 import card.*;
-import com.company.Grid;
+import jeu.Grid;
 import java.util.*;
 
 public class Player extends Cell {

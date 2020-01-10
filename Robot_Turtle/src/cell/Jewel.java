@@ -1,7 +1,5 @@
 package cell;
 
-import java.util.TreeMap;
-
 public class Jewel extends Cell {
     private String description = "I am a Jewel, the turtles that find me will be qualified for the victory !";
     private String name = "Jewel";
@@ -37,6 +35,9 @@ public class Jewel extends Cell {
     }
 
     public boolean isSurrouded() {
+        if (isCheck()) {
+
+        }
         return true;
     }
 
