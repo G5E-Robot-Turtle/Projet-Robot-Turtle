@@ -140,11 +140,8 @@ public class Player extends Cell {
                     System.out.println("You have " + handCard.size() + " hand cards and there isn't anymore card,\nyou need to execute your program.");
                     break;   //sortir de la boucle
                 }
-
             }
-
         }
-//        showHandCard();
     }
 
     public void showHandCard() {
@@ -164,7 +161,7 @@ public class Player extends Cell {
         System.out.println();
     }
 
-    public void showProgram() {
+    public void showProgram() {   //pour montrer le programme, on l'utilisera peut être un jour
         System.out.println("--  Program Card : " + program.size() + " --");
         Iterator<Card> iterator = program.iterator();
         while (iterator.hasNext()) {
@@ -223,7 +220,9 @@ public class Player extends Cell {
                 executeProgram();
                 break;
         }
-        manageHandCard();
+        if(!hasWon){    //si le joueur gagne, il ne manage pas ses cartes à la fin de son tour
+            manageHandCard();
+        }
     }
 
     public void manageHandCard() {
@@ -268,10 +267,147 @@ public class Player extends Cell {
                 System.out.println("New direction : " + this.currentDirection);
             } else if (actualCard.equals("card.LaserCard")) {
                 System.out.println("BOOM !");
-                //à remplir
+                attackAhead();
             }
         }
 
+    }
+
+    private void attackAhead() {
+        int gridLine = 8;
+        int gridColumn = 8;
+        int laserXPosition = getPositionX();
+        int laserYPosition = getPositionY();
+        boolean touched = false;
+        while (!touched) {
+            switch (this.currentDirection) {
+                case SOUTH:
+                    if (laserYPosition + 1 < gridLine) {
+                        if (checkTurtle(laserYPosition + 1, laserXPosition)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue touchée retourne à sa position initiale
+                                System.out.println("The turtle goes back to its initial position.");
+                                goToInitialPosition(positionPlayers.get(convertPositionToInt(laserYPosition + 1, laserXPosition))); //la tortue touchée va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue touchée fait demi-tour
+                                turnAround(positionPlayers.get(convertPositionToInt(laserYPosition + 1, laserXPosition)));    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else if (checkJewel(laserYPosition + 1, laserXPosition)) {   //touche un joyau
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue qui attaque retourne à sa position initiale
+                                System.out.println("The turtle who attacked goes back to its initial position.");
+                                goToInitialPosition(this); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
+                                turnAround(this);    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+
+                        } else {       //le laser continue son chemin
+                            laserYPosition++;
+                        }
+                    } else {        //le laser "sort du plateau"
+                        System.out.println("No target");
+                        touched = true;   //sortir de la boucle
+                    }
+                    break;
+
+                case NORTH:
+                    if (laserYPosition - 1 > -1) {
+                        if (checkTurtle(laserYPosition - 1, laserXPosition)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue touchée retourne à sa position initiale
+                                System.out.println("The turtle goes back to its initial position.");
+                                goToInitialPosition(positionPlayers.get(convertPositionToInt(laserYPosition - 1, laserXPosition))); //la tortue touchée va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue touchée fait demi-tour
+                                turnAround(positionPlayers.get(convertPositionToInt(laserYPosition - 1, laserXPosition)));    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else if (checkJewel(laserYPosition - 1, laserXPosition)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue qui attaque retourne à sa position initiale
+                                System.out.println("The turtle who attacked goes back to its initial position.");
+                                goToInitialPosition(this); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
+                                turnAround(this);    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else {       //le laser continue son chemin
+                            laserYPosition--;
+                        }
+                    } else {        //le laser "sort du plateau"
+                        System.out.println("No target");
+                        touched = true;   //sortir de la boucle
+                    }
+                    break;
+
+                case EAST:
+                    if (laserXPosition + 1 < gridColumn) {
+                        if (checkTurtle(laserYPosition, laserXPosition + 1)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue touchée retourne à sa position initiale
+                                System.out.println("The turtle goes back to its initial position.");
+                                goToInitialPosition(positionPlayers.get(convertPositionToInt(laserYPosition, laserXPosition + 1))); //la tortue touchée va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue touchée fait demi-tour
+                                turnAround(positionPlayers.get(convertPositionToInt(laserYPosition, laserXPosition + 1)));    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else if (checkJewel(laserYPosition, laserXPosition + 1)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue qui attaque retourne à sa position initiale
+                                System.out.println("The turtle who attacked goes back to its initial position.");
+                                goToInitialPosition(this); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
+                                turnAround(this);    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else {       //le laser continue son chemin
+                            laserXPosition++;
+                        }
+                    } else {        //le laser "sort du plateau"
+                        System.out.println("No target");
+                        touched = true;   //sortir de la boucle
+                    }
+                    break;
+
+                case WEST:
+                    if (laserXPosition - 1 > -1) {
+                        if (checkTurtle(laserYPosition, laserXPosition - 1)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue touchée retourne à sa position initiale
+                                System.out.println("The turtle goes back to its initial position.");
+                                goToInitialPosition(positionPlayers.get(convertPositionToInt(laserYPosition, laserXPosition - 1))); //la tortue touchée va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue touchée fait demi-tour
+                                turnAround(positionPlayers.get(convertPositionToInt(laserYPosition, laserXPosition - 1)));    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+
+                        } else if (checkJewel(laserYPosition, laserXPosition - 1)) {
+                            if (positionPlayers.size() > 2) {      //si plus de deux joueurs, la tortue qui attaque retourne à sa position initiale
+                                System.out.println("The turtle who attacked goes back to its initial position.");
+                                goToInitialPosition(this); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
+                                turnAround(this);    //demi-tour
+                                System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else {       //le laser continue son chemin
+                            laserXPosition--;
+                        }
+
+                    } else {        //le laser "sort du plateau"
+                        System.out.println("No target");
+                        touched = true;   //sortir de la boucle
+                    }
+                    break;
+            }
+        }
+
+    }
+
+    private void turnAround(Player player) {
+        player.currentDirection = player.direction.changeDirClock().changeDirClock();               //faire demi-tour
+        player.direction = player.currentDirection;  //mettre à jour la direction pour la prochaine fois
+        System.out.println("New direction of the target : " + player.currentDirection);
     }
 
     private void goAhead() {
@@ -350,14 +486,16 @@ public class Player extends Cell {
         player.setPositionY(player.getPosition()[2]);
         player.setPositionX(player.getPosition()[3]);
         player.currentDirection = Direction.SOUTH; //prendre la direction initiale
+        player.direction = player.currentDirection;   //enregistrer la position pour la prochaine fois
         positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
     }
 
-    //faire une variable static treemap? qui enregistre la position des joueurs pour savoir gérer les collisions
-    // une autre variable static pour entregistrer la position tes murs ?
-
     public boolean checkTurtle(int line, int column) {
         return positionPlayers.containsKey(convertPositionToInt(line, column));
+    }
+
+    public boolean checkJewel(int line, int column) {
+        return positionJewels.containsKey(convertPositionToInt(line, column));
     }
 
 

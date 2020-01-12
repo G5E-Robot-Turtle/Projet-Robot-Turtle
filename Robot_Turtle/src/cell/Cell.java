@@ -33,7 +33,8 @@ public abstract class Cell {
         int caseNum = 10 * line + column;
         return caseNum;
     }
-        public boolean isAvailable(int pos) {
+
+    public boolean isAvailable(int pos) {
         if (positionWalls.containsKey(pos)) {
             return false;
         } else {
