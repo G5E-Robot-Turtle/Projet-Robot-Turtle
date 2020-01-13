@@ -51,7 +51,7 @@ public class Jewel extends Cell {
     public void isSurrouded(int i, int j) {
         int quoi = tableau[i][j][0];
         int alreadyCheck = tableau[i][j][1];
-        if (alreadyCheck == 1 || quoi != 2) {
+        if (alreadyCheck == 1 && quoi != 2) {
             if (quoi == 1) {
                 playerEncounter += 1;
             }
@@ -66,7 +66,6 @@ public class Jewel extends Cell {
         System.out.println(i +"  "+ j);
         int quoi = tableau[i][j][0];
         int alreadyCheck = tableau[i][j][1];
-        if (alreadyCheck == 1 && quoi != 1) {
             if (quoi == 2) {
                 playerEncounter += 1;
                 System.out.println("réussite");
@@ -77,19 +76,19 @@ public class Jewel extends Cell {
                 return true;
             }
             tableau[i][j][1] = 0;
-            if (i != 7) {
+            if (i < 8 && tableau[i+1][j][1] == 1 && tableau[i+1][j][1] != 1) {
                 return isSuRrouded(i + 1, j, tableau, playerEncounter);
             }
-            if (i != 0) {
-                return isSuRrouded(i - 1, j, tableau, playerEncounter);
-            }
-            if (j != 7) {
+            if (j < 8 && tableau[i][j+1][1] == 0 && tableau[i][j+1][1] != 1) {
                 return isSuRrouded(i, j + 1, tableau, playerEncounter);
             }
-            if (j != 0) {
+            if (i > 0 && tableau[i-1][j][1] == 0 && tableau[i-1][j][1] != 1) {
+                return isSuRrouded(i - 1, j, tableau, playerEncounter);
+            }
+
+            if (j > 0 && tableau[i][j-1][1] == 0 && tableau[i][j-1][1] != 1) {
                 return isSuRrouded(i, j - 1, tableau, playerEncounter);
             }
-        }
         return false;
     }
 

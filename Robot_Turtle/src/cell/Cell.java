@@ -64,7 +64,6 @@ public abstract class Cell {
                         } else {
                             if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
                                 tab[i][j][0] = 0;
-                                System.out.println("au moins?");
                             }
                         }
                     }
@@ -73,8 +72,6 @@ public abstract class Cell {
                 }
             }
         }
-        System.out.println(tab);
-        System.out.println("lllllllllllooooooooooooollllllllllllll");
         return tab;
     }
 }
