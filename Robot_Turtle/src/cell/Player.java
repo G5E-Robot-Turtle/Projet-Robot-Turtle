@@ -593,8 +593,16 @@ public class Player extends Cell {
             if (!isAvailable(pos)) {
                 System.out.println("Unavailable cell, please choose another one!");
             }
+            int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
             System.out.println(positionPlayers.size());
-            System.out.println(jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
+            System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
             if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
                 System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
             }
