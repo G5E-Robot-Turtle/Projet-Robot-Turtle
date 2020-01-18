@@ -152,6 +152,11 @@ public class Player extends Cell {
         System.out.println();
     }
 
+    public void showWalls() {
+        System.out.println(">> You have : " + nbIce + " ice blocks.");
+        System.out.println(">> You have : " + nbStone + " stone walls.");
+    }
+
     public void showDiscard() {
         System.out.println("--  Discard Card : " + discard.size() + " --");
         Iterator<Card> iterator = discard.iterator();
@@ -199,6 +204,7 @@ public class Player extends Cell {
 
     public void play() {
         showHandCard();
+        showWalls();
         System.out.println("What do you want to do ?\n1. Complete the program\n2. Build a wall\n3. Execute the program.");
         int choiceMin = 1;
         int choiceMax = 3;
