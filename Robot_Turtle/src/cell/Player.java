@@ -420,6 +420,9 @@ public class Player extends Cell {
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY() + 1, getPositionX()))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
                         goToInitialPosition(this);
+                    } else if (checkWall(getPositionY() + 1, getPositionX())) {
+                        System.out.println("There's a wall here, you turn around!");
+                        turnAround(this);
                     } else {       //on peut avancer
                         communicateNewPosition(this, true, false, 1);
                     }
@@ -436,9 +439,12 @@ public class Player extends Cell {
                     if (checkTurtle(getPositionY(), getPositionX() + 1)) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() + 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
-                        goToInitialPosition(this);
+                        goToInitialPosition(this);                    
+                    } else if (checkWall(getPositionY() , getPositionX() + 1)) {
+                        System.out.println("There's a wall here, you turn around!");
+                        turnAround(this); 
                     } else {            //on peut avancer
-                        communicateNewPosition(this, false, true, 1);
+                        communicateNewPosition(this, false, true, 1);                   
                     }
                 } else {              //la tortue "sort du plateau"
                     if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau
@@ -452,9 +458,12 @@ public class Player extends Cell {
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY() - 1, getPositionX()))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
                         goToInitialPosition(this);
-                    } else {       //on peut avancer
+                    } else if (checkWall(getPositionY() - 1 , getPositionX())) {
+                        System.out.println("There's a wall here, you turn around!");
+                        turnAround(this); 
+                    }else {       //on peut avancer
                         communicateNewPosition(this, true, false, -1);
-                    }
+                    } 
                 } else {        //la tortue "sort du plateau"
                     if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau, les joyaux ne sont pas en haut de la grille, mais bon au cas où si on modifie la place des joyaux
                         goToInitialPosition(this);
@@ -467,6 +476,9 @@ public class Player extends Cell {
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() - 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
                         goToInitialPosition(this);
+                    } else if (checkWall(getPositionY() , getPositionX() - 1)) {
+                        System.out.println("There's a wall here, you turn around!");
+                        turnAround(this);
                     } else {            //on peut avancer
                         communicateNewPosition(this, false, true, -1);
                     }
@@ -481,6 +493,9 @@ public class Player extends Cell {
 
     private void goToInitialPosition(Player player) {
         System.out.println("Outch ! =( ");
+        if (checkWall(position[2], position[3])) {
+            positionWalls.remove(convertPositionToInt(position[2], position[3]));
+        }
         positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
         updatePreviousPosition(player);
         player.setPositionY(player.getPosition()[2]);
@@ -493,7 +508,11 @@ public class Player extends Cell {
     public boolean checkTurtle(int line, int column) {
         return positionPlayers.containsKey(convertPositionToInt(line, column));
     }
-
+    
+    public boolean checkWall(int line, int column) { //renvoie true si mur
+        return positionWalls.containsKey(convertPositionToInt(line, column));
+    }
+    
     public boolean checkJewel(int line, int column) {
         return positionJewels.containsKey(convertPositionToInt(line, column));
     }
