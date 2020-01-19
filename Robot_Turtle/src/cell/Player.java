@@ -307,14 +307,14 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
-/*                        } else if (checkWall(laserYPosition + 1, laserXPosition)) { //touche un mur
+                        } else if (checkWall(laserYPosition + 1, laserXPosition)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!"); !!!!! la ligne suivante ne marche pas !!!!!!
-                                positionWalls.remove(convertPositionToInt(laserYPosition + 1, laserXPosition)); //la tortue qui attaque va dans sa position initiale
+                                positionWalls.remove(convertPositionToInt(laserYPosition + 1, laserXPosition)); //on enlève le mur de glace touché
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
                             }
-                            touched = true;*/
+                            touched = true;
 
                         } else {       //le laser continue son chemin
                             laserYPosition++;
@@ -345,15 +345,15 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
-/*                      } else if (checkWall(laserYPosition - 1, laserXPosition)) { //touche un mur
+                        } else if (checkWall(laserYPosition - 1, laserXPosition)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!");
-                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition)); //la tortue qui attaque va dans sa position initiale
+                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition)); 
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
                             }
                             touched = true;
-*/
+
                         } else {       //le laser continue son chemin
                             laserYPosition--;
                         }
@@ -383,15 +383,14 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
-   /*                   } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                        } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!");
-                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1)); //la tortue qui attaque va dans sa position initiale
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1));
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
                             }
                             touched = true;
-*/
                         } else {       //le laser continue son chemin
                             laserXPosition++;
                         }
@@ -422,15 +421,14 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
-/*                      } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                        } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!");
-                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1)); //la tortue qui attaque va dans sa position initiale
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1));
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
                             }
                             touched = true;
- */
                         } else {       //le laser continue son chemin
                             laserXPosition--;
                         }
@@ -468,7 +466,7 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, 1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau (vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après
+                    if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau (utile vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après)
                         // il retourne à la position initiale
                         goToInitialPosition(this);
                     }
