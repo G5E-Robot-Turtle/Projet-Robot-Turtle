@@ -150,7 +150,5 @@ public class Grid {
             grid[line][column] = player.positionWalls.get(pos);
         }
     }
-    public void setCellGrid(int X, int Y, Cell cell) {
-        this.grid[X][Y] = cell;
-    }
+
 }
