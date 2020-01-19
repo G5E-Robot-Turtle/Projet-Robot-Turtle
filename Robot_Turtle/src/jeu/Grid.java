@@ -98,52 +98,6 @@ public class Grid {
         placeJewelInGrid(jewel2);
     }
 
-
-/*    public void initGrid(int nbJoueur) {  //  pour 2 à 4  joueurs   //non utilisé finalement, peut être que plus tard on le modifiera
-        Player player1 = new Player();
-        Player player2 = new Player("Turtle", "red", 2, new int[]{0, 5, 0, 5});   //les deux premières valeurs pour la position actuelle
-        //les deux dernières valeurs pour stocker la position initiale
-        Jewel jewel = new Jewel();
-        Empty empty = new Empty();
-        for (int i = 0; i < line; i++) {
-            for (int j = 0; j < column; j++) {
-                grid[i][j] = empty;                 //une soixantaine de empty n'est pas nécessaire ?
-            }
-        }
-        switch (nbJoueur) {
-            case 2:
-                grid[player1.getPositionY()][player1.getPositionX()] = player1;     //attention, getPositionY donne bien la ligne et getPositionX la colonne !
-                grid[player2.getPositionY()][player2.getPositionX()] = player2;
-                grid[7][3] = jewel;
-                //placer des murs en colonne 7 ligne 0 à 7
-                displayGrid(line, column);
-                break;
-            case 3:
-                Player player3 = new Player("Turtle", "purple", 3, new int[]{0, 6, 0, 6});
-                //créer jewel 2 et 3
-                player1.setPosition(new int[]{0, 0, 0, 0});
-                player2.setPosition(new int[]{0, 3, 0, 3});
-                grid[player1.getPositionY()][player1.getPositionX()] = player1;
-                grid[player2.getPositionY()][player2.getPositionX()] = player2;
-                //faire pour player3
-                grid[7][0] = jewel;
-                //faire pour les deux autres jewel
-                //placer des murs en colonne 7 ligne 0 à 7
-                break;
-            case 4:
-                //remplir
-                break;
-            default:
-                System.out.println("Nombre de joueurs invalide !");
-        }
-//        displayGrid(line, column);
-    }*/
-
-
-    //    public Position getPlayerPosition(Player player){ }    //on garde cette méthode ?
-    public void addCellObject(Position position) {    //return une Position ?, à compléter
-    }
-
     public void makeEmpty(int line, int column, Player player) {
         Empty empty = new Empty();
         for (int i = 0; i < line; i++) {
@@ -179,7 +133,7 @@ public class Grid {
             }
         }
     }
-    public void updateGridWall(Player player) { //mettre un player pour obtenir positionWalls
+    public void updateGridWall(Player player) { //mettre un player en parametre pour obtenir positionWalls
         int line;
         int column;
         Empty empty = new Empty();
@@ -196,7 +150,5 @@ public class Grid {
             grid[line][column] = player.positionWalls.get(pos);
         }
     }
-    public void setCellGrid(int X, int Y, Cell cell) {
-        this.grid[X][Y] = cell;
-    }
+    
 }
