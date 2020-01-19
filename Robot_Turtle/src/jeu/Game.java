@@ -56,6 +56,7 @@ public class Game {
             default:
                 System.out.println("Please choose a correct number of players (2, 3 or 4)");
         }
+        window = new Window(nbPlayer);
     }
 
     public void startGame() {
@@ -89,6 +90,8 @@ public class Game {
                     grid.updateGridWall(empty);
                     grid.updateGridPlayers(grid.getLine(), grid.getColumn(), players);
                     grid.displayGrid(grid.getLine(), grid.getColumn());
+                    
+                    window.refresh(grid.getGrid());
                     System.out.println();
                     if(players.get(i).getHasWon()){   //si le joueur a gagné pendant ce round
                         nbPlayersHaveWon++;
