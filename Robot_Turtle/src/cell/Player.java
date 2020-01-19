@@ -307,6 +307,14 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+/*                        } else if (checkWall(laserYPosition + 1, laserXPosition)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("iceWall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition + 1, laserXPosition)); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("stoneWall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;*/
 
                         } else {       //le laser continue son chemin
                             laserYPosition++;
@@ -337,6 +345,15 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+/*                      } else if (checkWall(laserYPosition - 1, laserXPosition)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("iceWall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition)); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("stoneWall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;
+*/
                         } else {       //le laser continue son chemin
                             laserYPosition--;
                         }
@@ -366,6 +383,15 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+   /*                   } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("iceWall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1)); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("iceWall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;
+*/
                         } else {       //le laser continue son chemin
                             laserXPosition++;
                         }
@@ -396,6 +422,15 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+/*                      } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("iceWall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1)); //la tortue qui attaque va dans sa position initiale
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("stoneWall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;
+ */
                         } else {       //le laser continue son chemin
                             laserXPosition--;
                         }
