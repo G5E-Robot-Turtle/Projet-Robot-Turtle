@@ -639,7 +639,6 @@ public class Player extends Cell {
                 }
               System.out.println("NOPE");
           } while (!isAvailable(pos));
-        }    
         if (wallType == 1) {
             positionWalls.put(pos, iceWall);
             nbIce--;
