@@ -584,7 +584,7 @@ public class Player extends Cell {
         int wallType;
         int x;
         int y;
-        int pos;
+        int pos = 0;
         StoneWall stoneWall = new StoneWall();
         IceWall iceWall = new IceWall();
         if (nbIce != 0 && nbStone != 0) {
@@ -605,41 +605,44 @@ public class Player extends Cell {
                 }
             }
         }
-        do {
+        if (wallType != 0 {
             do {
-                System.out.print("In which line do you want to insert this wall?");
-                x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
-            } while ((x < 0) || (x > gridColumn - 1));
-            do {
-                System.out.print("In which column do you want to insert this wall?");
-                y = scan.nextInt() - 1;
-            } while ((y < 0) || (y > gridLine - 1));
-            pos = convertPositionToInt(x, y);
-            if (!isAvailable(pos)) {
-                System.out.println("Unavailable cell, please choose another one!");
-            }
-            int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
-            System.out.println(positionPlayers.size());
-            System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
-            if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
-                System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
-            }
-            System.out.println("NOPE");
-        } while (!isAvailable(pos));
+                do {
+                    System.out.print("In which line do you want to insert this wall?");
+                    x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+                } while ((x < 0) || (x > gridColumn - 1));
+                do {
+                    System.out.print("In which column do you want to insert this wall?");
+                    y = scan.nextInt() - 1;
+                } while ((y < 0) || (y > gridLine - 1));
+                pos = convertPositionToInt(x, y);
+               if (!isAvailable(pos)) {
+                   System.out.println("Unavailable cell, please choose another one!");
+                }
+                int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
+                      {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
+              System.out.println(positionPlayers.size());
+              System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
+              if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
+                   System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+                }
+              System.out.println("NOPE");
+          } while (!isAvailable(pos));
+        }    
         if (wallType == 1) {
             positionWalls.put(pos, iceWall);
             nbIce--;
-        }
-        if (wallType == 2) {
+        } else if (wallType == 2) {
             positionWalls.put(pos, stoneWall);
             nbStone--;
+        } else {
+            System.out.println("You don't have anymore wall !");
         }
     }
 }
