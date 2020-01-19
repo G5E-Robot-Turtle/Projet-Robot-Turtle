@@ -307,6 +307,14 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+                        } else if (checkWall(laserYPosition + 1, laserXPosition)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Ice wall")) {
+                                System.out.println("The laser touched an ice block!"); !!!!! la ligne suivante ne marche pas !!!!!!
+                                positionWalls.remove(convertPositionToInt(laserYPosition + 1, laserXPosition)); //on enlève le mur de glace touché
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Stone wall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;
 
                         } else {       //le laser continue son chemin
                             laserYPosition++;
@@ -337,6 +345,15 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
+                        } else if (checkWall(laserYPosition - 1, laserXPosition)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Ice wall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition)); 
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Stone wall")) {
+                                System.out.println("The laser touched a stone wall!");
+                            }
+                            touched = true;
+
                         } else {       //le laser continue son chemin
                             laserYPosition--;
                         }
@@ -364,6 +381,14 @@ public class Player extends Cell {
                             } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
                                 turnAround(this);    //demi-tour
                                 System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Ice wall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1));
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Stone wall")) {
+                                System.out.println("The laser touched a stone wall!");
                             }
                             touched = true;
                         } else {       //le laser continue son chemin
@@ -394,6 +419,14 @@ public class Player extends Cell {
                             } else if (positionPlayers.size() == 2) {    //si deux joueurs, la tortue qui attaque fait demi-tour
                                 turnAround(this);    //demi-tour
                                 System.out.println("Turn around !");
+                            }
+                            touched = true;
+                        } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                            if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Ice wall")) {
+                                System.out.println("The laser touched an ice block!");
+                                positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1));
+                            } else if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Stone wall")) {
+                                System.out.println("The laser touched a stone wall!");
                             }
                             touched = true;
                         } else {       //le laser continue son chemin
@@ -433,7 +466,7 @@ public class Player extends Cell {
                         communicateNewPosition(this, true, false, 1);
                     }
                 } else {        //la tortue "sort du plateau"
-                    if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau (vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après
+                    if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau (utile vers la fin si son programme le permet d'atteindre le joyau, mais le fait "sortir" après)
                         // il retourne à la position initiale
                         goToInitialPosition(this);
                     }
@@ -549,34 +582,6 @@ public class Player extends Cell {
         }
     }
 
-    public void setWall(Grid grid) {
-        Scanner scan = new Scanner(System.in);
-        int wallType;
-        int x;
-        int y;
-        StoneWall stoneWall = new StoneWall();
-        IceWall iceWall = new IceWall();
-        do {
-            System.out.println("Which type of wall do you want to insert?");
-            System.out.println("1 : An icewall");
-            System.out.println("2 : A stonewall");
-            wallType = scan.nextInt();
-        } while (wallType != 1 && wallType != 2);
-        do {
-            System.out.print("In which line do you want to insert this wall?");
-            x = scan.nextInt();
-        } while ((x < 1) || (x > grid.getColumn()));
-        do {
-            System.out.print("In which column do you want to insert this wall?");
-            y = scan.nextInt();
-        } while ((y < 1) || (y > grid.getLine()));
-        if (wallType == 1) {
-            grid.setCellGrid(x, y, iceWall);
-        } else {
-            grid.setCellGrid(x, y, stoneWall);
-        }
-    }
-
     public void setWall() {
         Scanner scan = new Scanner(System.in);
         int gridLine = 8;
@@ -584,7 +589,7 @@ public class Player extends Cell {
         int wallType;
         int x;
         int y;
-        int pos;
+        int pos = 0;
         StoneWall stoneWall = new StoneWall();
         IceWall iceWall = new IceWall();
         if (nbIce != 0 && nbStone != 0) {
@@ -605,41 +610,44 @@ public class Player extends Cell {
                 }
             }
         }
-        do {
+        if (wallType != 0){
             do {
-                System.out.print("In which line do you want to insert this wall?");
-                x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
-            } while ((x < 0) || (x > gridColumn - 1));
-            do {
-                System.out.print("In which column do you want to insert this wall?");
-                y = scan.nextInt() - 1;
-            } while ((y < 0) || (y > gridLine - 1));
-            pos = convertPositionToInt(x, y);
-            if (!isAvailable(pos)) {
-                System.out.println("Unavailable cell, please choose another one!");
-            }
-            int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                    {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
-            System.out.println(positionPlayers.size());
-            System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
-            if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
-                System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
-            }
-            System.out.println("NOPE");
-        } while (!isAvailable(pos));
+                do {
+                    System.out.print("In which line do you want to insert this wall?");
+                    x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+                } while ((x < 0) || (x > gridColumn - 1));
+                do {
+                    System.out.print("In which column do you want to insert this wall?");
+                    y = scan.nextInt() - 1;
+                } while ((y < 0) || (y > gridLine - 1));
+                pos = convertPositionToInt(x, y);
+               if (!isAvailable(pos)) {
+                   System.out.println("Unavailable cell, please choose another one!");
+                }
+                int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
+                      {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
+                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
+              System.out.println(positionPlayers.size());
+              System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
+              if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
+                   System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+                }
+              System.out.println("NOPE");
+          } while (!isAvailable(pos));
+        }    
         if (wallType == 1) {
             positionWalls.put(pos, iceWall);
             nbIce--;
-        }
-        if (wallType == 2) {
+        } else if (wallType == 2) {
             positionWalls.put(pos, stoneWall);
             nbStone--;
+        } else {
+            System.out.println("You don't have anymore wall !");
         }
     }
 }

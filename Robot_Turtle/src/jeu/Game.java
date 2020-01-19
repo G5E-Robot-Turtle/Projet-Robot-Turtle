@@ -9,6 +9,7 @@ import java.util.List;
 public class Game {
     private List<Player> players = new ArrayList<>();
     private Grid grid = new Grid();
+    private Window window;
 
     public Game() {
 
@@ -56,6 +57,7 @@ public class Game {
             default:
                 System.out.println("Please choose a correct number of players (2, 3 or 4)");
         }
+        window = new Window(nbPlayer);
     }
 
     public void startGame() {
@@ -79,30 +81,24 @@ public class Game {
 
         while (nbPlayersHaveWon < nbPlayers - 1) {
             ++round;
-            Empty empty = new Empty();
             System.out.println("  --  Round " + round + "  --");
             for (int i = 0; i < players.size(); i++) {
                 if (!players.get(i).getHasWon()) {     //si le joueur a gagné, il ne joue plus
                     System.out.println("\nPlayer " + players.get(i).getPassageOrder() + " it's your turn !");
                     players.get(i).pickCardFromDeck();
                     players.get(i).play();
-//                    grid.updateGrid(grid.getLine(), grid.getColumn(), players.get(i));
-                    grid.updateGridWall(empty);
+                    grid.updateGridWall(players.get(i));
                     grid.updateGridPlayers(grid.getLine(), grid.getColumn(), players);
                     grid.displayGrid(grid.getLine(), grid.getColumn());
+                    
+                    window.refresh(grid.getGrid());
                     System.out.println();
                     if(players.get(i).getHasWon()){   //si le joueur a gagné pendant ce round
                         nbPlayersHaveWon++;
                     }
-
                 }
             }
         }
     }
 
-    public Game(boolean isGraphic, int nbPlayers){
-        if(isGraphic){
-            Window window = new Window(nbPlayers);
-        }
-    }
 }
