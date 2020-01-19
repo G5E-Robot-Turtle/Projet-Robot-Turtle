@@ -182,6 +182,14 @@ public class Grid {
     public void updateGridWall(Empty player) { //mettre un player pour obtenir positionWalls
         int line;
         int column;
+        Empty empty = new Empty();
+        for (int i = 0; i < this.line; i++) {
+            for (int j = 0; j < this.column; j++) {
+                if (!(grid[i][j].getName().equals("Player 1") || grid[i][j].getName().equals("Player 2") || grid[i][j].getName().equals("Player 3") || grid[i][j].getName().equals("Player 4") || grid[i][j].getName().equals("Jewel"))) {
+                    grid[i][j] = empty;
+                }
+            }
+        }
         for (int pos : player.positionWalls.keySet()) {
             line = pos / 10;
             column = pos % 10;
