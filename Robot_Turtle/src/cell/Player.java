@@ -532,15 +532,15 @@ public class Player extends Cell {
 
     private void goToInitialPosition(Player player) {
         System.out.println("Outch ! =( ");
-        if (checkWall(position[2], position[3])) {
-            positionWalls.remove(convertPositionToInt(position[2], position[3]));
+        if (checkWall(player.getPosition()[2], player.getPosition()[3])) {     //s'il y a un mur sur la position initiale du joueur, il sera détruit
+            positionWalls.remove(convertPositionToInt(player.getPosition()[2], player.getPosition()[3]));
         }
         positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
         updatePreviousPosition(player);
         player.setPositionY(player.getPosition()[2]);
         player.setPositionX(player.getPosition()[3]);
         player.currentDirection = Direction.SOUTH; //prendre la direction initiale
-        player.direction = player.currentDirection;   //enregistrer la position pour la prochaine fois
+        player.direction = player.currentDirection;   //enregistrer la direction pour la prochaine fois
         positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
     }
 
@@ -594,7 +594,7 @@ public class Player extends Cell {
         IceWall iceWall = new IceWall();
         if (nbIce != 0 && nbStone != 0) {
             do {
-                System.out.println("Which type of wall do you want to insert ?");
+                System.out.println("Which type of wall do you want to insert ? ");
                 System.out.println("1 : An icewall");
                 System.out.println("2 : A stonewall");
                 wallType = scan.nextInt();
@@ -613,16 +613,16 @@ public class Player extends Cell {
         if (wallType != 0) {
             do {
                 do {
-                    System.out.print("In which line do you want to insert this wall?");
+                    System.out.print("In which line do you want to insert this wall ? ");
                     x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
                 } while ((x < 0) || (x > gridColumn - 1));
                 do {
-                    System.out.print("In which column do you want to insert this wall?");
+                    System.out.print("In which column do you want to insert this wall ? ");
                     y = scan.nextInt() - 1;
                 } while ((y < 0) || (y > gridLine - 1));
                 pos = convertPositionToInt(x, y);
                 if (!isAvailable(pos)) {
-                    System.out.println("Unavailable cell, please choose another one!");
+                    System.out.println("Unavailable cell, please choose another one !");
                 }
                 int[][][] tableau = {{{2, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
                         {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
@@ -646,7 +646,7 @@ public class Player extends Cell {
                 positionWalls.put(pos, stoneWall);
                 nbStone--;
             } else {
-                System.out.println("You don't have anymore wall !");
+                System.out.println("You don't have anymore walls !");
             }
         }
     }
