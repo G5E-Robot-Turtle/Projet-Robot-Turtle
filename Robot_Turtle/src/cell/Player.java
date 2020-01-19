@@ -226,7 +226,7 @@ public class Player extends Cell {
                 executeProgram();
                 break;
         }
-        if(!hasWon){    //si le joueur gagne, il ne manage pas ses cartes à la fin de son tour
+        if (!hasWon) {    //si le joueur gagne, il ne manage pas ses cartes à la fin de son tour
             manageHandCard();
         }
     }
@@ -348,7 +348,7 @@ public class Player extends Cell {
                         } else if (checkWall(laserYPosition - 1, laserXPosition)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!");
-                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition)); 
+                                positionWalls.remove(convertPositionToInt(laserYPosition - 1, laserXPosition));
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition - 1, laserXPosition)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
                             }
@@ -478,12 +478,12 @@ public class Player extends Cell {
                     if (checkTurtle(getPositionY(), getPositionX() + 1)) {   //il faut gérer le cas s'il y a un mur avec un else if par exemple
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() + 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
-                        goToInitialPosition(this);                    
-                    } else if (checkWall(getPositionY() , getPositionX() + 1)) {
+                        goToInitialPosition(this);
+                    } else if (checkWall(getPositionY(), getPositionX() + 1)) {
                         System.out.println("There's a wall here, you turn around!");
-                        turnAround(this); 
+                        turnAround(this);
                     } else {            //on peut avancer
-                        communicateNewPosition(this, false, true, 1);                   
+                        communicateNewPosition(this, false, true, 1);
                     }
                 } else {              //la tortue "sort du plateau"
                     if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau
@@ -497,12 +497,12 @@ public class Player extends Cell {
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY() - 1, getPositionX()))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
                         goToInitialPosition(this);
-                    } else if (checkWall(getPositionY() - 1 , getPositionX())) {
+                    } else if (checkWall(getPositionY() - 1, getPositionX())) {
                         System.out.println("There's a wall here, you turn around!");
-                        turnAround(this); 
-                    }else {       //on peut avancer
+                        turnAround(this);
+                    } else {       //on peut avancer
                         communicateNewPosition(this, true, false, -1);
-                    } 
+                    }
                 } else {        //la tortue "sort du plateau"
                     if (!this.hasWon) {     //si le joueur n'a pas gagné avant de sortir du plateau, les joyaux ne sont pas en haut de la grille, mais bon au cas où si on modifie la place des joyaux
                         goToInitialPosition(this);
@@ -515,7 +515,7 @@ public class Player extends Cell {
                         System.out.println("The two turtles go back to their initial position.");
                         goToInitialPosition(positionPlayers.get(convertPositionToInt(getPositionY(), getPositionX() - 1))); //la tortue cognée va aussi dans sa position initiale, important de faire "rentrer" la tortue cognée d'abord, sinon bug (getPosition.. change)
                         goToInitialPosition(this);
-                    } else if (checkWall(getPositionY() , getPositionX() - 1)) {
+                    } else if (checkWall(getPositionY(), getPositionX() - 1)) {
                         System.out.println("There's a wall here, you turn around!");
                         turnAround(this);
                     } else {            //on peut avancer
@@ -547,11 +547,11 @@ public class Player extends Cell {
     public boolean checkTurtle(int line, int column) {
         return positionPlayers.containsKey(convertPositionToInt(line, column));
     }
-    
+
     public boolean checkWall(int line, int column) { //renvoie true si mur
         return positionWalls.containsKey(convertPositionToInt(line, column));
     }
-    
+
     public boolean checkJewel(int line, int column) {
         return positionJewels.containsKey(convertPositionToInt(line, column));
     }
@@ -621,32 +621,33 @@ public class Player extends Cell {
                     y = scan.nextInt() - 1;
                 } while ((y < 0) || (y > gridLine - 1));
                 pos = convertPositionToInt(x, y);
-               if (!isAvailable(pos)) {
-                   System.out.println("Unavailable cell, please choose another one!");
+                if (!isAvailable(pos)) {
+                    System.out.println("Unavailable cell, please choose another one!");
                 }
-                int[][][] tableau = {{{2,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{2,1},{1,1}},
-                      {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}},
-                       {{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{0,1},{1,1}}};
-              System.out.println(positionPlayers.size());
-              System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
-              if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
-                   System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+                int[][][] tableau = {{{2, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {2, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
+                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}}};
+                System.out.println(positionPlayers.size());
+                System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
+                if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
+                    System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
                 }
-              System.out.println("NOPE");
-          } while (!isAvailable(pos));
-        if (wallType == 1) {
-            positionWalls.put(pos, iceWall);
-            nbIce--;
-        } else if (wallType == 2) {
-            positionWalls.put(pos, stoneWall);
-            nbStone--;
-        } else {
-            System.out.println("You don't have anymore wall !");
+                System.out.println("NOPE");
+            } while (!isAvailable(pos));
+            if (wallType == 1) {
+                positionWalls.put(pos, iceWall);
+                nbIce--;
+            } else if (wallType == 2) {
+                positionWalls.put(pos, stoneWall);
+                nbStone--;
+            } else {
+                System.out.println("You don't have anymore wall !");
+            }
         }
     }
 }
