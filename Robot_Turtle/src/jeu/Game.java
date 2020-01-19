@@ -9,6 +9,7 @@ import java.util.List;
 public class Game {
     private List<Player> players = new ArrayList<>();
     private Grid grid = new Grid();
+    private Window window;
 
     public Game() {
 
