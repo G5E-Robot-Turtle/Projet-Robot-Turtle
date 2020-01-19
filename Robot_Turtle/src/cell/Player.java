@@ -421,7 +421,7 @@ public class Player extends Cell {
                                 System.out.println("Turn around !");
                             }
                             touched = true;
-                        } else if (checkWall(laserYPosition, laserXPosition + 1)) { //touche un mur
+                        } else if (checkWall(laserYPosition, laserXPosition - 1)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition, laserXPosition + 1)).getName().equals("Ice wall")) {
                                 System.out.println("The laser touched an ice block!");
                                 positionWalls.remove(convertPositionToInt(laserYPosition, laserXPosition + 1));
