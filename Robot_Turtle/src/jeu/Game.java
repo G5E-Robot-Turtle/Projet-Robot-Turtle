@@ -86,7 +86,6 @@ public class Game {
                     System.out.println("\nPlayer " + players.get(i).getPassageOrder() + " it's your turn !");
                     players.get(i).pickCardFromDeck();
                     players.get(i).play();
-//                    grid.updateGrid(grid.getLine(), grid.getColumn(), players.get(i));
                     grid.updateGridWall(empty);
                     grid.updateGridPlayers(grid.getLine(), grid.getColumn(), players);
                     grid.displayGrid(grid.getLine(), grid.getColumn());
@@ -94,15 +93,9 @@ public class Game {
                     if(players.get(i).getHasWon()){   //si le joueur a gagné pendant ce round
                         nbPlayersHaveWon++;
                     }
-
                 }
             }
         }
     }
 
-    public Game(boolean isGraphic, int nbPlayers){
-        if(isGraphic){
-            Window window = new Window(nbPlayers);
-        }
-    }
 }
