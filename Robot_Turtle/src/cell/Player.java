@@ -309,7 +309,7 @@ public class Player extends Cell {
                             touched = true;
                         } else if (checkWall(laserYPosition + 1, laserXPosition)) { //touche un mur
                             if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Ice wall")) {
-                                System.out.println("The laser touched an ice block!"); !!!!! la ligne suivante ne marche pas !!!!!!
+                                System.out.println("The laser touched an ice block!");
                                 positionWalls.remove(convertPositionToInt(laserYPosition + 1, laserXPosition)); //on enlève le mur de glace touché
                             } else if (positionWalls.get(convertPositionToInt(laserYPosition + 1, laserXPosition)).getName().equals("Stone wall")) {
                                 System.out.println("The laser touched a stone wall!");
@@ -610,7 +610,7 @@ public class Player extends Cell {
                 }
             }
         }
-        if (wallType != 0){
+        if (wallType != 0) {
             do {
                 do {
                     System.out.print("In which line do you want to insert this wall?");
