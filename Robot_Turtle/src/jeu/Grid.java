@@ -139,7 +139,7 @@ public class Grid {
         Empty empty = new Empty();
         for (int i = 0; i < this.line; i++) {
             for (int j = 0; j < this.column; j++) {
-                if (grid[i][j].getName.equals("Ice wall")) {
+                if (grid[i][j].getName().equals("Ice wall")) {
                     grid[i][j] = empty;
                 }
             }
