@@ -12,5 +12,4 @@ public class BlueCard implements Card {
     public String getName() {
         return this.name;
     }
-
 }

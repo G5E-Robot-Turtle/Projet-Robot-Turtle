@@ -12,5 +12,4 @@ public class YellowCard implements Card {
     public String getName() {
         return this.name;
     }
-
 }

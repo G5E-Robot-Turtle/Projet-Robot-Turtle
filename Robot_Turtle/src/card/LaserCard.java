@@ -8,7 +8,6 @@ public class LaserCard implements Card {
 
     }
 
-
     @Override
     public String getName() {
         return this.name;

@@ -13,5 +13,4 @@ public class PurpleCard implements Card {
         return this.name;
     }
 
-
 }
