@@ -30,36 +30,6 @@ public class Jewel extends Cell {
         return position[1];
     }
 
-    //Partie pour vérifier l'encerclement :
-
-    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
-            if (tableau[i][j][0] == 2) {
-                playerEncounter += 1;
-                System.out.println("réussite");
-                System.out.println(playerEncounter);
-            }
-            if (playerEncounter == positionPlayers.size()) {
-                System.out.println("WUT");
-                return true;
-            }
-            tableau[i][j][1] = 0;
-            if (i < 7 && tableau[i+1][j][1] == 1 && tableau[i+1][j][0] != 1) {
-                return isSuRrouded(i + 1, j, tableau, playerEncounter);
-            }
-            if (j < 7 && tableau[i][j+1][1] == 1 && tableau[i][j+1][0] != 1) {
-                return isSuRrouded(i, j + 1, tableau, playerEncounter);
-            }
-            if (i > 0 && tableau[i-1][j][1] == 1 && tableau[i-1][j][0] != 1) {
-                return isSuRrouded(i - 1, j, tableau, playerEncounter);
-            }
-
-            if (j > 0 && tableau[i][j-1][1] == 1 && tableau[i][j-1][0] != 1) {
-                return isSuRrouded(i, j - 1, tableau, playerEncounter);
-            }
-        return false;
-    }
-    //fin de vérif encerclement
-
     public String getName() {
         return this.name;
     }

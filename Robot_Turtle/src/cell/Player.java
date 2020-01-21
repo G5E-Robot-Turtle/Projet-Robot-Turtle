@@ -597,6 +597,36 @@ public class Player extends Cell {
         }
     }
 
+    //Partie pour vérifier l'encerclement :
+
+    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
+        if (tableau[i][j][0] == 2) {
+            playerEncounter += 1;
+            System.out.println("réussite");
+            System.out.println(playerEncounter);
+        }
+        if (playerEncounter == positionPlayers.size()) {
+            System.out.println("WUT");
+            return true;
+        }
+        tableau[i][j][1] = 0;
+        if (i < 7 && tableau[i+1][j][1] == 1 && tableau[i+1][j][0] != 1) {
+            return isSuRrouded(i + 1, j, tableau, playerEncounter);
+        }
+        if (j < 7 && tableau[i][j+1][1] == 1 && tableau[i][j+1][0] != 1) {
+            return isSuRrouded(i, j + 1, tableau, playerEncounter);
+        }
+        if (i > 0 && tableau[i-1][j][1] == 1 && tableau[i-1][j][0] != 1) {
+            return isSuRrouded(i - 1, j, tableau, playerEncounter);
+        }
+
+        if (j > 0 && tableau[i][j-1][1] == 1 && tableau[i][j-1][0] != 1) {
+            return isSuRrouded(i, j - 1, tableau, playerEncounter);
+        }
+        return false;
+    }
+    //fin de vérif encerclement
+
     public void setWall() {
         Scanner scan = new Scanner(System.in);
         int gridLine = 8;
@@ -655,11 +685,14 @@ public class Player extends Cell {
                     System.out.println("Unavailable cell, please choose another one !");
                 }
                 System.out.println(positionPlayers.size());
-                int popos = positionJewels.keySet().toArray().length;
-                if (jewel.isSuRrouded(popos/10, popos%10, posArrayBool(8, 8), 0)) {
-                    System.out.println("Mur interdit : un joyau ne serait plus accessible!");
+                int key = positionJewels.firstKey();
+                for (int i = 1; i < positionJewels.size();i++) {
+                    if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
+                        System.out.println("Mur interdit : un joyau ne serait plus accessible!");
+                    }
+                    key = positionJewels.higherKey(key);
                 }
-            } while (!isAvailable(pos) || !jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
+            } while (!isAvailable(pos) || !this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
                 nbIce--;
