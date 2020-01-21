@@ -73,7 +73,7 @@ public class Deck {
     }
 
 
-    public void showDeck(){
+    public void showDeck(){                   //peut être utile pour plus tard, si un jour on veut afficher le deck
         System.out.println("Deck size : "+deck.size());
         for (Card card : deck) {
             System.out.println(card);

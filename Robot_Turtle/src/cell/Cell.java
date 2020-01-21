@@ -52,7 +52,7 @@ public abstract class Cell {
                     if (positionPlayers.containsKey(convertPositionToInt(i, j))) {
                         tab[i][j][0] = 2;
                     } else {
-                        if (positionWalls.get(convertPositionToInt(i, j)).getName().equals("Stone wall")) {
+                        if (positionWalls.get(convertPositionToInt(i, j)).getName().equals("Stone wall")) {   //pour différencier les Stone wall des Ice wall
                             tab[i][j][0] = 1;
                         } else {
                             if (positionWalls.get(convertPositionToInt(i, j)).getName().equals("Ice wall") || positionWalls.get(convertPositionToInt(i, j)).getName().equals("EmptyZone") || positionJewels.containsKey(convertPositionToInt(i, j))) {
@@ -67,4 +67,26 @@ public abstract class Cell {
         }
         return tab;
     }
+
+    public void displayPosArrayBoolDim3Pour0(int[][][] tab){
+        for (int i = 0; i < tab.length; i++) {    //nb de ligne
+            for (int j = 0; j < tab[0].length; j++) {   //nb de colonne
+                System.out.print(tab[i][j][0]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void displayPosArrayBoolDim3Pour1(int[][][] tab){
+        for (int i = 0; i < tab.length; i++) {    //nb de ligne
+            for (int j = 0; j < tab[0].length; j++) {   //nb de colonne
+                System.out.print(tab[i][j][1]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+
 }
