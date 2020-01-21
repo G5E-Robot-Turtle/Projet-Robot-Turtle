@@ -537,15 +537,12 @@ public class Player extends Cell {
 
     //Partie pour vérifier l'encerclement :
 
-    public static int isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
+    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
         displayPosArrayBoolDim3Pour1(tableau);
         if (tableau[i][j][0] == 2) {
             playerEncounter += 1;
             System.out.println("réussite");
             System.out.println(playerEncounter);
-        }
-        if (playerEncounter == positionPlayers.size()) {
-            System.out.println("WUT");
         }
         tableau[i][j][1] = 0;
         if (i < 7 && tableau[i + 1][j][1] == 1 && tableau[i + 1][j][0] != 1) {
@@ -560,7 +557,12 @@ public class Player extends Cell {
         if (j > 0 && tableau[i][j - 1][1] == 1 && tableau[i][j - 1][0] != 1) {
             isSuRrouded(i, j - 1, tableau, playerEncounter);
         }
-        return playerEncounter;
+        if (playerEncounter == positionPlayers.size()) {
+            System.out.println("WUT");
+            return false;
+        } else {
+            return true;
+        }
     }
     //fin de vérif encerclement
 
@@ -626,7 +628,7 @@ public class Player extends Cell {
                 for (int i = 0; i < positionJewels.size();i++) {
                     System.out.println(key/10);
                     System.out.println(key%10);
-                    if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0) != 2) {
+                    if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
                         System.out.println("Mur interdit : un joyau ne serait plus accessible!");
                     }
                     try {
@@ -635,7 +637,7 @@ public class Player extends Cell {
                         i = 100;
                     }
                 }
-            } while (!isAvailable(pos) || this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0) != 2);
+            } while (!isAvailable(pos) || this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
                 nbIce--;
