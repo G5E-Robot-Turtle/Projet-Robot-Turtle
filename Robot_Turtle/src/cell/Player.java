@@ -655,10 +655,10 @@ public class Player extends Cell {
                     System.out.println("Unavailable cell, please choose another one !");
                 }
                 System.out.println(positionPlayers.size());
-                if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
+                int popos = positionJewels.keySet().toArray().length;
+                if (jewel.isSuRrouded(popos/10, popos%10, posArrayBool(8, 8), 0)) {
                     System.out.println("Mur interdit : un joyau ne serait plus accessible!");
                 }
-                System.out.println("NOPE");
             } while (!isAvailable(pos) || !jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
