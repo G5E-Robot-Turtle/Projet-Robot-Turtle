@@ -7,7 +7,7 @@ public class LaserCard implements Card {
     public LaserCard() {    //constructeur par défaut
 
     }
-
+    
     @Override
     public String getName() {
         return this.name;

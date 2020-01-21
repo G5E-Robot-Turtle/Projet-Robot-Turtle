@@ -626,7 +626,7 @@ public class Player extends Cell {
                 int key = positionJewels.firstKey();
                 for (int i = 0; i < positionJewels.size(); i++) {
                     if (!this.isSuRrouded(key / 10, key % 10, posArrayBool(8, 8), 0)) {
-                        System.out.println("Mur interdit : un joyau ne serait plus accessible!");
+                        System.out.println("Prohibited action : jewel would not be accessible anymore !");
                     }
                     key = positionJewels.higherKey(key);
                 }
