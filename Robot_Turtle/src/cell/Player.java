@@ -686,11 +686,17 @@ public class Player extends Cell {
                 }
                 System.out.println(positionPlayers.size());
                 int key = positionJewels.firstKey();
-                for (int i = 1; i < positionJewels.size();i++) {
-                    if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
+                for (int i = 0; i < positionJewels.size();i++) {
+                    System.out.println(key/10);
+                    System.out.println(key%10);
+                    if (!this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
                         System.out.println("Mur interdit : un joyau ne serait plus accessible!");
                     }
-                    key = positionJewels.higherKey(key);
+                    try {
+                        key = positionJewels.higherKey(key);
+                    } catch (NullPointerException e){
+                        i = 100;
+                    }
                 }
             } while (!isAvailable(pos) || !this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
             if (wallType == 1) {
