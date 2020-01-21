@@ -182,13 +182,18 @@ public class Player extends Cell {
             System.out.println("Which card do you want to add to your program ? (-1 to Stop)");
             while (!handCard.isEmpty()) {
                 showHandCard();
-                int choice = scanner.nextInt();       //il faut controler si l'utilisateur saisie un décimal
-                if (choice > -1 && choice < handCard.size()) {
-                    program.add(handCard.remove(choice));
-                } else if (choice == -1) {
-                    break;
-                } else {
-                    System.out.println("Incorrect index, please try again");
+                try {
+                    int choice = scanner.nextInt();       //il faut controler si l'utilisateur saisie un décimal
+                    if (choice > -1 && choice < handCard.size()) {
+                        program.add(handCard.remove(choice));
+                    } else if (choice == -1) {
+                        break;
+                    } else {
+                        System.out.println("Incorrect index, please try again");
+                    }
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Saisie invalide");
                 }
             }
         }
@@ -210,9 +215,14 @@ public class Player extends Cell {
         int choiceMax = 3;
         int choice;
         do {
-            choice = scanner.nextInt();
-            if (!(choiceMin - 1 < choice && choice < choiceMax + 1)) {
-                System.out.println("Error, please try a correct choice");
+            try {
+                choice = scanner.nextInt();
+                if (!(choiceMin - 1 < choice && choice < choiceMax + 1)) {
+                    System.out.println("Error, please try a correct choice");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Saisie invalide");
+                choice = -1;
             }
         } while (!(choiceMin - 1 < choice && choice < choiceMax + 1));
         switch (choice) {
@@ -237,16 +247,21 @@ public class Player extends Cell {
             System.out.println("Do you want to discards your hand cards before picking new ones ? (1 : Yes ; 0 : No)");
             do
             {                                //défausser sa main et piocher 5 cartes ou piocher jusqu'à avoir 5 cartes
-                choice = scanner.nextInt();
-                if (choice == 1) {
-                    addToDiscard();
-                    if (handCard.isEmpty()) {  //on peut enlever le if
+                try {
+                    choice = scanner.nextInt();
+                    if (choice == 1) {
+                        addToDiscard();
+                        if (handCard.isEmpty()) {  //on peut enlever le if
+                            pickCardFromDeck();
+                        }
+                    } else if (choice == 0) {
                         pickCardFromDeck();
+                    } else {
+                        System.out.println("Error, please input a correct choice");
                     }
-                } else if (choice == 0) {
-                    pickCardFromDeck();
-                } else {
-                    System.out.println("Error, please input a correct choice");
+                } catch (InputMismatchException e) {
+                    System.out.println("Saisie invalide");
+                    choice = -1;
                 }
             } while (!(choice == 0 || choice == 1));
         } else {   //main vide
@@ -602,7 +617,7 @@ public class Player extends Cell {
                 } catch (InputMismatchException e) {
                     System.out.println("Saisie invalide");
                     wallType = 0;
-            }
+                }
             } while (wallType != 1 && wallType != 2);
         } else {
             if (nbStone == 0 && nbIce != 0) {
@@ -621,16 +636,16 @@ public class Player extends Cell {
                     try {
                         System.out.print("In which line do you want to insert this wall ? ");
                         x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
-                    }catch (InputMismatchException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Saisie invalide");
                         x = -1;
                     }
                 } while ((x < 0) || (x > gridColumn - 1));
                 do {
                     try {
-                    System.out.print("In which column do you want to insert this wall ? ");
-                    y = scan.nextInt() - 1;
-                    }catch (InputMismatchException e) {
+                        System.out.print("In which column do you want to insert this wall ? ");
+                        y = scan.nextInt() - 1;
+                    } catch (InputMismatchException e) {
                         System.out.println("Saisie invalide");
                         y = -1;
                     }
