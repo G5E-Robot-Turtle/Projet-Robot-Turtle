@@ -20,10 +20,7 @@ public class Player extends Cell {
     private Scanner scanner = new Scanner(System.in);
     private int[] position = {0, 1, 0, 1};   //position[0] = ligne, position[1] = colonne, ici par défaut le joueur est à la ligne 0 et à la colonne 1
     //position[2] = ligne de départ, position[3] = colonne de départ, utilise lorsque la tortue se prend un laser par exemple
-    private int[] previousPosition = new int[2];  //enregistre la position précédente de la tortue, utile pour mettre à jour uniquement les cellules qui ont été modifiées
     private boolean hasWon = false;
-    //Integer en clé car TreeMap n'accepte pas les tableaux en clé, ni Player
-    //mettre en private ? static pour enregistrer/synchroniser la position de tous les joueurs créés afin de gérer les collisions
 
     public Player() {
         int caseNum = convertPositionToInt(position[0], position[1]);
@@ -68,58 +65,15 @@ public class Player extends Cell {
         this.position[1] = column;
     }
 
-    public int[] getPreviousPosition() {
-        return this.previousPosition;
-    }
-
-    public void setPreviousPosition(int[] previousPosition) {
-        this.previousPosition = previousPosition;
-    }
-
-    public int getPreviousPositionY() {
-        return this.previousPosition[0];
-    }
-
-    public void setPreviousPositionY(int line) {
-        this.previousPosition[0] = line;
-    }
-
-    public int getPreviousPositionX() {
-        return this.previousPosition[1];
-    }
-
-    public void setPreviousPositionX(int column) {
-        this.previousPosition[1] = column;
-    }
-
-
-    public String getColor() {
-        return color;
-    }
-
-    public Direction getCurrentDirection() {
-        return currentDirection;
-    }
-
-    public void setCurrentDirection(Direction newDirection) {
-        this.direction = newDirection; //à vérifier
-    }
-
     public int getPassageOrder() {
         return this.passageOrder;
-    }
-
-    public ArrayDeque getProgram() {
-        return this.program;
-    }
-
-    public List<Card> getHandCard() {
-        return this.handCard;
     }
 
     public String getName() {
         return this.name;
     }
+
+    public String getColor() { return color; }
 
     public void pickCardFromDeck() {
         int maximumHandCard = 5;
@@ -150,7 +104,7 @@ public class Player extends Cell {
         System.out.println(">> You have : " + nbStone + " stone walls.");
     }
 
-    public void showDiscard() {
+    public void showDiscard() {    //pour montrer la défausse, quelqu'un voudra peut-être l'utiliser un jour
         System.out.println("--  Discard Card : " + discard.size() + " --");
         Iterator<Card> iterator = discard.iterator();
         while (iterator.hasNext()) {
@@ -159,7 +113,7 @@ public class Player extends Cell {
         System.out.println();
     }
 
-    public void showProgram() {   //pour montrer le programme, on l'utilisera peut être un jour
+    public void showProgram() {   //pour montrer le programme, quelqu'un voudra peut-être l'utiliser un jour
         System.out.println("--  Program Card : " + program.size() + " --");
         Iterator<Card> iterator = program.iterator();
         while (iterator.hasNext()) {
@@ -543,7 +497,6 @@ public class Player extends Cell {
             positionWalls.remove(convertPositionToInt(player.getPosition()[2], player.getPosition()[3]));
         }
         positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
-        updatePreviousPosition(player);
         player.setPositionY(player.getPosition()[2]);
         player.setPositionX(player.getPosition()[3]);
         player.currentDirection = Direction.SOUTH; //prendre la direction initiale
@@ -563,15 +516,8 @@ public class Player extends Cell {
         return positionJewels.containsKey(convertPositionToInt(line, column));
     }
 
-
-    public void updatePreviousPosition(Player player) {
-        player.setPreviousPositionY(player.getPositionY());
-        player.setPreviousPositionX(player.getPositionX());
-    }
-
     public void communicateNewPosition(Player player, boolean Ymove, boolean Xmove, int value) {    //ne permet pas de bouger sur Y et X en même temps
         positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
-        updatePreviousPosition(player);
         if (Ymove) {
             player.setPositionY(getPositionY() + value);
         } else if (Xmove) {
@@ -678,9 +624,9 @@ public class Player extends Cell {
                 }
                 System.out.println(positionPlayers.size());
                 int key = positionJewels.firstKey();
-                for (int i = 1; i < positionJewels.size(); i++) {
+                for (int i = 0; i < positionJewels.size(); i++) {
                     if (!this.isSuRrouded(key / 10, key % 10, posArrayBool(8, 8), 0)) {
-                        System.out.println("Mur interdit : un joyau ne serait plus accessible!");
+                        System.out.println("Prohibited action : jewel would not be accessible anymore !");
                     }
                     key = positionJewels.higherKey(key);
                 }
