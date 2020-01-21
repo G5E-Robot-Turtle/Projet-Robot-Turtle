@@ -1,8 +1,8 @@
 package cell;
 //package Card;
 
-import card.*;
-import jeu.Grid;
+import card.Card;
+import card.Deck;
 
 import java.util.*;
 
@@ -594,10 +594,15 @@ public class Player extends Cell {
         IceWall iceWall = new IceWall();
         if (nbIce != 0 && nbStone != 0) {
             do {
-                System.out.println("Which type of wall do you want to insert ? ");
-                System.out.println("1 : An icewall");
-                System.out.println("2 : A stonewall");
-                wallType = scan.nextInt();
+                try {
+                    System.out.println("Which type of wall do you want to insert ? ");
+                    System.out.println("1 : An icewall");
+                    System.out.println("2 : A stonewall");
+                    wallType = scan.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Saisie invalide");
+                    wallType = 0;
+            }
             } while (wallType != 1 && wallType != 2);
         } else {
             if (nbStone == 0 && nbIce != 0) {
@@ -613,32 +618,33 @@ public class Player extends Cell {
         if (wallType != 0) {
             do {
                 do {
-                    System.out.print("In which line do you want to insert this wall ? ");
-                    x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+                    try {
+                        System.out.print("In which line do you want to insert this wall ? ");
+                        x = scan.nextInt() - 1;//pour que le joueur joue ligne 1 à 8 au lieu de 0 à 7
+                    }catch (InputMismatchException e) {
+                        System.out.println("Saisie invalide");
+                        x = -1;
+                    }
                 } while ((x < 0) || (x > gridColumn - 1));
                 do {
+                    try {
                     System.out.print("In which column do you want to insert this wall ? ");
                     y = scan.nextInt() - 1;
+                    }catch (InputMismatchException e) {
+                        System.out.println("Saisie invalide");
+                        y = -1;
+                    }
                 } while ((y < 0) || (y > gridLine - 1));
                 pos = convertPositionToInt(x, y);
                 if (!isAvailable(pos)) {
                     System.out.println("Unavailable cell, please choose another one !");
                 }
-                int[][][] tableau = {{{2, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {2, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}},
-                        {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {1, 1}}};
                 System.out.println(positionPlayers.size());
-                System.out.println(jewel.isSuRrouded(7, 3, tableau, 0));
                 if (jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0)) {
-                    System.out.println("CCCCCCCCCCCCCAAAAAAAAAAAAAAAAA MMMMMMMMMMMMMMMAAAAAAAAAAAAAAAARRRRRRRRRRRRRRCCCCCCCCCCCCHHHHHHHHHHHHHEEEEEEEEEEEEEEEE");
+                    System.out.println("Mur interdit : un joyau ne serait plus accessible!");
                 }
                 System.out.println("NOPE");
-            } while (!isAvailable(pos));
+            } while (!isAvailable(pos) || !jewel.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
                 nbIce--;
