@@ -604,16 +604,19 @@ public class Player extends Cell {
         }
         tableau[i][j][1] = 0;
         if (i < 7 && tableau[i + 1][j][1] == 1 && tableau[i + 1][j][0] != 1) {
+            //System.out.println("BAS");
             return isSuRrouded(i + 1, j, tableau, playerEncounter);
         }
         if (j < 7 && tableau[i][j + 1][1] == 1 && tableau[i][j + 1][0] != 1) {
+            //System.out.println("DROIT");
             return isSuRrouded(i, j + 1, tableau, playerEncounter);
         }
         if (i > 0 && tableau[i - 1][j][1] == 1 && tableau[i - 1][j][0] != 1) {
+            //System.out.println("HAUT");
             return isSuRrouded(i - 1, j, tableau, playerEncounter);
         }
-
         if (j > 0 && tableau[i][j - 1][1] == 1 && tableau[i][j - 1][0] != 1) {
+            //System.out.println("GAUCHE");
             return isSuRrouded(i, j - 1, tableau, playerEncounter);
         }
         return false;
