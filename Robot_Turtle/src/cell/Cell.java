@@ -65,10 +65,11 @@ public abstract class Cell {
                 }
             }
         }
+        displayPosArrayBoolDim3Pour0(tab);
         return tab;
     }
 
-    public void displayPosArrayBoolDim3Pour0(int[][][] tab){
+    public static void displayPosArrayBoolDim3Pour0(int[][][] tab){
         for (int i = 0; i < tab.length; i++) {    //nb de ligne
             for (int j = 0; j < tab[0].length; j++) {   //nb de colonne
                 System.out.print(tab[i][j][0]+" ");
@@ -78,7 +79,7 @@ public abstract class Cell {
         System.out.println();
     }
 
-    public void displayPosArrayBoolDim3Pour1(int[][][] tab){
+    public static void displayPosArrayBoolDim3Pour1(int[][][] tab){
         for (int i = 0; i < tab.length; i++) {    //nb de ligne
             for (int j = 0; j < tab[0].length; j++) {   //nb de colonne
                 System.out.print(tab[i][j][1]+" ");
