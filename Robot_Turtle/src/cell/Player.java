@@ -10,13 +10,11 @@ public class Player extends Cell {
     private String color;
     private Direction direction = Direction.SOUTH;
     private Direction currentDirection = direction;   //direction SUD par défaut
-    private int score;
     private int nbIce = 2;
     private int nbStone = 3;
     private int passageOrder;
     private ArrayDeque<Card> program = new ArrayDeque<>();
     private List<Card> handCard = new ArrayList<>();
-    private List<Block> blocks;
     private ArrayDeque<Card> discard = new ArrayDeque<>();   //défausse
     private Deck deck = new Deck();
     private String name = "Turtle";
@@ -120,10 +118,6 @@ public class Player extends Cell {
         return this.handCard;
     }
 
-    public List<Block> getBlocks() {
-        return this.blocks;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -191,8 +185,7 @@ public class Player extends Cell {
                     } else {
                         System.out.println("Incorrect index, please try again");
                     }
-                }
-                catch (InputMismatchException e) {
+                } catch (InputMismatchException e) {
                     System.out.println("Saisie invalide");
                 }
             }
@@ -610,17 +603,17 @@ public class Player extends Cell {
             return true;
         }
         tableau[i][j][1] = 0;
-        if (i < 7 && tableau[i+1][j][1] == 1 && tableau[i+1][j][0] != 1) {
+        if (i < 7 && tableau[i + 1][j][1] == 1 && tableau[i + 1][j][0] != 1) {
             return isSuRrouded(i + 1, j, tableau, playerEncounter);
         }
-        if (j < 7 && tableau[i][j+1][1] == 1 && tableau[i][j+1][0] != 1) {
+        if (j < 7 && tableau[i][j + 1][1] == 1 && tableau[i][j + 1][0] != 1) {
             return isSuRrouded(i, j + 1, tableau, playerEncounter);
         }
-        if (i > 0 && tableau[i-1][j][1] == 1 && tableau[i-1][j][0] != 1) {
+        if (i > 0 && tableau[i - 1][j][1] == 1 && tableau[i - 1][j][0] != 1) {
             return isSuRrouded(i - 1, j, tableau, playerEncounter);
         }
 
-        if (j > 0 && tableau[i][j-1][1] == 1 && tableau[i][j-1][0] != 1) {
+        if (j > 0 && tableau[i][j - 1][1] == 1 && tableau[i][j - 1][0] != 1) {
             return isSuRrouded(i, j - 1, tableau, playerEncounter);
         }
         return false;

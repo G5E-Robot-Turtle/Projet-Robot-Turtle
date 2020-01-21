@@ -3,19 +3,12 @@ package cell;
 import java.util.TreeMap;
 
 public abstract class Cell {
-    protected Player player;
-    protected Block block;
-    protected Jewel jewel;
-    protected Empty empty;
     protected String name = "I'm a cell";
     public static TreeMap<Integer, Jewel> positionJewels = new TreeMap<>();
     public static TreeMap<Integer, Block> positionWalls = new TreeMap<>();
     protected boolean check = false;
     public static TreeMap<Integer, Player> positionPlayers = new TreeMap<>();  //<position, Player> pour savoir  s'il y a un joueur à une telle position
 
-    public void isEmpty() { // à enlever ?
-
-    }
 
     public void setCheck(boolean temp) {
         check = temp;
@@ -59,10 +52,10 @@ public abstract class Cell {
                     if (positionPlayers.containsKey(convertPositionToInt(i, j))) {
                         tab[i][j][0] = 2;
                     } else {
-                        if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Stone wall") {
+                        if (positionWalls.get(convertPositionToInt(i, j)).getName().equals("Stone wall")) {
                             tab[i][j][0] = 1;
                         } else {
-                            if (positionWalls.get(convertPositionToInt(i, j)).getName() == "Ice wall" || positionWalls.get(convertPositionToInt(i, j)).getName() == "EmptyZone" || positionJewels.containsKey(convertPositionToInt(i, j))) {
+                            if (positionWalls.get(convertPositionToInt(i, j)).getName().equals("Ice wall") || positionWalls.get(convertPositionToInt(i, j)).getName().equals("EmptyZone") || positionJewels.containsKey(convertPositionToInt(i, j))) {
                                 tab[i][j][0] = 0;
                             }
                         }
