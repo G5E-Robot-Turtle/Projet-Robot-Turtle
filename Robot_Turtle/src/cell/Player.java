@@ -45,21 +45,17 @@ public class Player extends Cell {
         return this.position;
     }
 
-    public void setPosition(int[] position) {
-        this.position = position;
-    }
-
     public int getPositionY() {
         return this.position[0];
     }         //attention aux confusions !
 
+    public int getPositionX() {
+        return this.position[1];
+    }
+
     public void setPositionY(int line) {
         this.position[0] = line;
     }
-
-    public int getPositionX() {
-        return this.position[1];
-    }         //attention aux confusions !
 
     public void setPositionX(int column) {
         this.position[1] = column;
@@ -72,8 +68,6 @@ public class Player extends Cell {
     public String getName() {
         return this.name;
     }
-
-    public String getColor() { return color; }
 
     public void pickCardFromDeck() {
         int maximumHandCard = 5;
@@ -220,7 +214,6 @@ public class Player extends Cell {
         while (!program.isEmpty() && !hasWon) {
             discard.addLast(program.peekFirst());
             String actualCard = program.removeFirst().getClass().getName();
-//            System.out.println(program.removeFirst().getClass().getName());   //on obtient le nom de la Classe (ex: card.BlueCard)
             if (actualCard.equals("card.BlueCard")) {
                 System.out.println("Go go go !");
                 goAhead();
@@ -560,7 +553,7 @@ public class Player extends Cell {
             return true;
         }
     }
-    //fin de vérif encerclement
+    //fin de vérifie l'encerclement
 
     public void setWall() {
         Scanner scan = new Scanner(System.in);
@@ -626,7 +619,7 @@ public class Player extends Cell {
                         int[][][] tableau = posArrayBool(8, 8);
                         tableau[x][y][0] = 1;
                         if (this.isSuRrouded(key / 10, key % 10, tableau)) {
-                            System.out.println("Illegal wall : it won't be possible for one of the turtle to touch the jewel on x = " + key / 10 + " and y = " + key % 10);
+                            System.out.println("Illegal wall : it won't be possible for one of the turtle to touch the jewel on x = " + (key / 10 + 1) + " and y = " + (key % 10 + 1));
                             valid = false;
                         }
                         try {
