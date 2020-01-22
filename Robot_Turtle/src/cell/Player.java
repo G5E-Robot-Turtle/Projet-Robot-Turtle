@@ -540,6 +540,7 @@ public class Player extends Cell {
     public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
         displayPosArrayBoolDim3Pour1(tableau);
         if (tableau[i][j][0] == 2) {
+            tableau[0][0][2] += 1;
             playerEncounter += 1;
             System.out.println("réussite");
             System.out.println(playerEncounter);
@@ -557,10 +558,11 @@ public class Player extends Cell {
         if (j > 0 && tableau[i][j - 1][1] == 1 && tableau[i][j - 1][0] != 1) {
             isSuRrouded(i, j - 1, tableau, playerEncounter);
         }
-        if (playerEncounter == positionPlayers.size()) {
+        if (tableau[0][0][2] == positionPlayers.size()) {
             System.out.println("WUT");
             return false;
         } else {
+            System.out.println("MERDE!!!!!!!!!!!!!!!!");
             return true;
         }
     }
@@ -628,6 +630,7 @@ public class Player extends Cell {
                 for (int i = 0; i < positionJewels.size();i++) {
                     System.out.println(key/10);
                     System.out.println(key%10);
+                    System.out.println(this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0));
                     if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
                         System.out.println("Mur interdit : un joyau ne serait plus accessible!");
                     }

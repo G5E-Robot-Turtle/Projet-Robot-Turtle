@@ -44,7 +44,8 @@ public abstract class Cell {
     }
 
     public int[][][] posArrayBool(int gridLine, int gridColumn) {
-        int tab[][][] = new int[gridLine][gridColumn][2];
+        int tab[][][] = new int[gridLine][gridColumn][3];
+        tab[0][0][2] = 0;
         for (int i = 0; i < gridLine; i++) {
             for (int j = 0; j < gridColumn; j++) {
                 tab[i][j][1] = 1;
