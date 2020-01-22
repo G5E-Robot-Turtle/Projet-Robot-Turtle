@@ -133,6 +133,7 @@ public class Grid {
             }
         }
     }
+
     public void updateGridWall(Player player) { //mettre un player en parametre pour obtenir positionWalls
         int line;
         int column;
@@ -150,5 +151,5 @@ public class Grid {
             grid[line][column] = player.positionWalls.get(pos);
         }
     }
-    
+
 }
