@@ -616,6 +616,7 @@ public class Player extends Cell {
                         y = -1;
                     }
                 } while ((y < 0) || (y > gridLine - 1));
+                valid = true;
                 pos = convertPositionToInt(x, y);
                 if (!isAvailable(pos)) {
                     System.out.println("Unavailable cell, please choose another one !");
