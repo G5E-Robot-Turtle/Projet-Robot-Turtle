@@ -27,7 +27,7 @@ public class Player extends Cell {
         this.positionPlayers.put(caseNum, this);   //enregistrer le joueur et sa position dans la variable static
     } //constructeur par défaut
 
-    public Player(String name, String color, int passageOrder, int initialPosition[]) {
+    public Player(String name, String color, int passageOrder, int[] initialPosition) {
         this.name = name;
 
         this.color = color;
@@ -41,7 +41,7 @@ public class Player extends Cell {
         return this.hasWon;
     }
 
-    public int[] getPosition() {
+    private int[] getPosition() {
         return this.position;
     }
 
@@ -53,11 +53,11 @@ public class Player extends Cell {
         return this.position[1];
     }
 
-    public void setPositionY(int line) {
+    private void setPositionY(int line) {
         this.position[0] = line;
     }
 
-    public void setPositionX(int column) {
+    private void setPositionX(int column) {
         this.position[1] = column;
     }
 
@@ -85,7 +85,7 @@ public class Player extends Cell {
         }
     }
 
-    public void showHandCard() {
+    private void showHandCard() {
         System.out.println("--  Hand Card : " + handCard.size() + " --");
         for (int i = 0; i < handCard.size(); i++) {
             System.out.print(i + ". " + handCard.get(i).getName() + "\t");
@@ -93,7 +93,7 @@ public class Player extends Cell {
         System.out.println();
     }
 
-    public void showWalls() {
+    private void showWalls() {
         System.out.println(">> You have : " + nbIce + " ice blocks.");
         System.out.println(">> You have : " + nbStone + " stone walls.");
     }
@@ -116,7 +116,7 @@ public class Player extends Cell {
         System.out.println();
     }
 
-    public void addToProgram() {
+    private void addToProgram() {
         if (handCard.isEmpty()) {
             System.out.println("You don't have any cards to add to your program");
         } else {
@@ -139,7 +139,7 @@ public class Player extends Cell {
         }
     }
 
-    public void addToDiscard() {
+    private void addToDiscard() {
         while (handCard.size() > 0) {
             for (int i = 0; i < handCard.size(); i++) {
                 discard.addLast(handCard.remove(0));   //"déplacer" le premier élément de handCard à chaque fois
@@ -181,7 +181,7 @@ public class Player extends Cell {
         }
     }
 
-    public void manageHandCard() {
+    private void manageHandCard() {
         int choice;
         if (!handCard.isEmpty()) {
             System.out.println("Do you want to discards your hand cards before picking new ones ? (1 : Yes ; 0 : No)");
@@ -210,7 +210,7 @@ public class Player extends Cell {
 
     }
 
-    public void executeProgram() {
+    private void executeProgram() {
         while (!program.isEmpty() && !hasWon) {
             discard.addLast(program.peekFirst());
             String actualCard = program.removeFirst().getClass().getName();
@@ -497,19 +497,19 @@ public class Player extends Cell {
         positionPlayers.put(convertPositionToInt(player.getPositionY(), player.getPositionX()), player);
     }
 
-    public boolean checkTurtle(int line, int column) {
+    private boolean checkTurtle(int line, int column) {
         return positionPlayers.containsKey(convertPositionToInt(line, column));
     }
 
-    public boolean checkWall(int line, int column) { //renvoie true si mur
+    private boolean checkWall(int line, int column) { //renvoie true si mur
         return positionWalls.containsKey(convertPositionToInt(line, column));
     }
 
-    public boolean checkJewel(int line, int column) {
+    private boolean checkJewel(int line, int column) {
         return positionJewels.containsKey(convertPositionToInt(line, column));
     }
 
-    public void communicateNewPosition(Player player, boolean Ymove, boolean Xmove, int value) {    //ne permet pas de bouger sur Y et X en même temps
+    private void communicateNewPosition(Player player, boolean Ymove, boolean Xmove, int value) {    //ne permet pas de bouger sur Y et X en même temps
         positionPlayers.remove(convertPositionToInt(player.getPositionY(), player.getPositionX()));
         if (Ymove) {
             player.setPositionY(getPositionY() + value);
@@ -520,7 +520,7 @@ public class Player extends Cell {
         checkIfWin(player);
     }
 
-    public void checkIfWin(Player player) {
+    private void checkIfWin(Player player) {
         if (positionJewels.containsKey(convertPositionToInt(player.getPositionY(), player.getPositionX()))) {
             System.out.println("Congratulations ! " + player.getName() + " is qualified !");
             player.hasWon = true;
@@ -530,7 +530,7 @@ public class Player extends Cell {
 
     //Partie pour vérifier l'encerclement :
 
-    public static boolean isSuRrouded(int i, int j, int[][][] tableau) {
+    private boolean isSuRrouded(int i, int j, int[][][] tableau) {
         if (tableau[i][j][0] == 2) {//a player is the number 2
             tableau[0][0][2] += 1;
         }
@@ -555,7 +555,7 @@ public class Player extends Cell {
     }
     //fin de vérifie l'encerclement
 
-    public void setWall() {
+    private void setWall() {
         Scanner scan = new Scanner(System.in);
         int gridLine = 8;
         int gridColumn = 8;
