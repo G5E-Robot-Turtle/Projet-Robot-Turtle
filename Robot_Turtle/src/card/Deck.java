@@ -14,7 +14,8 @@ public class Deck {
     public Deck() {
         this.deck = shuffle();
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return deck.isEmpty();
     }
 
@@ -44,7 +45,7 @@ public class Deck {
                 deck.add(new LaserCard());
             }
             mixedCard[random] = 1;   //pour pas que l'entier actuel de random soit réétudié (éviter d'étudier deux fois le cas random = 5 par exemple)
-                                     //en effet, le do while regénèrera un autre entier.
+            //en effet, le do while regénèrera un autre entier.
         }
         return deck;
     }
@@ -52,7 +53,7 @@ public class Deck {
     public Stack<Card> shuffle(ArrayDeque<Card> discard) {      // prend la défausse et la mélange
         int[] mixedCard = new int[discard.size()];    //pour savoir si la carte a déjà été utilisé pour le mélange
         ArrayList<Card> discardList = new ArrayList<>();
-        while (!discard.isEmpty()){
+        while (!discard.isEmpty()) {
             discardList.add(discard.removeFirst());
         }
         int nbCardMax = discardList.size();
@@ -73,14 +74,15 @@ public class Deck {
     }
 
 
-    public void showDeck(){                   //peut être utile pour plus tard, si un jour on veut afficher le deck
-        System.out.println("Deck size : "+deck.size());
+    public void showDeck() {                   //peut être utile pour plus tard, si un jour on veut afficher le deck
+        System.out.println("Deck size : " + deck.size());
         for (Card card : deck) {
             System.out.println(card);
         }
     }
-    public Card pick(){
-        if(!deck.isEmpty()){
+
+    public Card pick() {
+        if (!deck.isEmpty()) {
             return this.deck.pop();
         } else {
             System.out.println("Deck is empty");

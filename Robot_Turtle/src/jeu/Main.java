@@ -13,7 +13,7 @@ public class Main {
         do {
             try {
                 nbPlayers = scanner.nextInt();
-                if(nbPlayers > 4 || nbPlayers < 2){
+                if (nbPlayers > 4 || nbPlayers < 2) {
                     System.out.println("Error, number of players incorrect, please try again");
                 }
             } catch (InputMismatchException e) {

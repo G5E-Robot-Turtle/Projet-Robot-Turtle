@@ -12,7 +12,7 @@ public class Window extends JFrame {
     private int column = 8;
     private int cellSize = 80;    //chaque cellule fait 80 de largeur et de hauteur
     private JPanel gridContent = new JPanel();        //Le conteneur principal
-    private CellPanel[][] emptyCells = new CellPanel[line][column];            //marche pas quand on voudra remove les cellPanel ? essayer de mettre que des CellPanels
+    private CellPanel[][] emptyCells = new CellPanel[line][column];
     private GridBagLayout gbl = new GridBagLayout();
     private GridBagConstraints gbc = new GridBagConstraints();   //pour ordonner la position des JPanel dans le conteneur principal
 
@@ -39,7 +39,7 @@ public class Window extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //bouton fermeture permet de quitter le programme
         this.setLocationRelativeTo(null);      //centrer la fenêtre au début
 
-        gridContent.setBounds(50,50,680,680);
+        gridContent.setBounds(50, 50, 680, 680);
 //        gridContent.setPreferredSize(new Dimension(680, 680));   //ne change rien ?
         gridContent.setBackground(Color.WHITE);
         //On définit le layout manager

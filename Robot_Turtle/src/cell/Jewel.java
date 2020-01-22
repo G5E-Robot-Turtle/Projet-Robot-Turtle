@@ -16,10 +16,6 @@ public class Jewel extends Cell {
         positionJewels.put(caseNum, this);  //enregistrer le joyau et sa position dans la variable static
     }
 
-    public int[] getPosition() {
-        return position;
-    }
-
     public int getPositionY() {
         return position[0];
     }
