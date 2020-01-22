@@ -537,32 +537,26 @@ public class Player extends Cell {
 
     //Partie pour vérifier l'encerclement :
 
-    public static boolean isSuRrouded(int i, int j, int[][][] tableau, int playerEncounter) {
-        displayPosArrayBoolDim3Pour1(tableau);
+    public static boolean isSuRrouded(int i, int j, int[][][] tableau) {
         if (tableau[i][j][0] == 2) {
             tableau[0][0][2] += 1;
-            playerEncounter += 1;
-            System.out.println("réussite");
-            System.out.println(playerEncounter);
         }
         tableau[i][j][1] = 0;
         if (i < 7 && tableau[i + 1][j][1] == 1 && tableau[i + 1][j][0] != 1) {
-            isSuRrouded(i + 1, j, tableau, playerEncounter);
+            isSuRrouded(i + 1, j, tableau);
         }
         if (j < 7 && tableau[i][j + 1][1] == 1 && tableau[i][j + 1][0] != 1) {
-            isSuRrouded(i, j + 1, tableau, playerEncounter);
+            isSuRrouded(i, j + 1, tableau);
         }
         if (i > 0 && tableau[i - 1][j][1] == 1 && tableau[i - 1][j][0] != 1) {
-            isSuRrouded(i - 1, j, tableau, playerEncounter);
+            isSuRrouded(i - 1, j, tableau);
         }
         if (j > 0 && tableau[i][j - 1][1] == 1 && tableau[i][j - 1][0] != 1) {
-            isSuRrouded(i, j - 1, tableau, playerEncounter);
+            isSuRrouded(i, j - 1, tableau);
         }
         if (tableau[0][0][2] == positionPlayers.size()) {
-            System.out.println("WUT");
             return false;
         } else {
-            System.out.println("MERDE!!!!!!!!!!!!!!!!");
             return true;
         }
     }
@@ -624,23 +618,22 @@ public class Player extends Cell {
                 pos = convertPositionToInt(x, y);
                 if (!isAvailable(pos)) {
                     System.out.println("Unavailable cell, please choose another one !");
-                }
-                System.out.println(positionPlayers.size());
-                int key = positionJewels.firstKey();
-                for (int i = 0; i < positionJewels.size();i++) {
-                    System.out.println(key/10);
-                    System.out.println(key%10);
-                    System.out.println(this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0));
-                    if (this.isSuRrouded(key / 10, key%10, posArrayBool(8, 8), 0)) {
-                        System.out.println("Mur interdit : un joyau ne serait plus accessible!");
+                } else {
+                    int key = positionJewels.firstKey();
+                    for (int i = 0; i < positionJewels.size(); i++) {
+                        int[][][] tableau = posArrayBool(8, 8);
+                        tableau[x][y][0] = 1;
+                        if (this.isSuRrouded(key / 10, key % 10, posArrayBool(8, 8))) {
+                            System.out.println("Illegal wall : it won't be possible to touch one of the jewel");
+                        }
+                        try {
+                            key = positionJewels.higherKey(key);
+                        } catch (NullPointerException e) {
+                            i = 100;
+                        }
                     }
-                    try {
-                        key = positionJewels.higherKey(key);
-                    } catch (NullPointerException e){
-                        i = 100;
-                    }
                 }
-            } while (!isAvailable(pos) || this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8), 0));
+            } while (!isAvailable(pos) || this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8)));
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
                 nbIce--;
