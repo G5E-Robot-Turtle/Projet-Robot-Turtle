@@ -66,7 +66,6 @@ public abstract class Cell {
                 }
             }
         }
-        displayPosArrayBoolDim3Pour0(tab);
         return tab;
     }
 

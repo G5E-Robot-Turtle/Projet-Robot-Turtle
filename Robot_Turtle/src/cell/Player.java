@@ -538,10 +538,10 @@ public class Player extends Cell {
     //Partie pour vérifier l'encerclement :
 
     public static boolean isSuRrouded(int i, int j, int[][][] tableau) {
-        if (tableau[i][j][0] == 2) {
+        if (tableau[i][j][0] == 2) {//a player is the number 2
             tableau[0][0][2] += 1;
         }
-        tableau[i][j][1] = 0;
+        tableau[i][j][1] = 0;//we set this to avoid calling the function on a cell already test
         if (i < 7 && tableau[i + 1][j][1] == 1 && tableau[i + 1][j][0] != 1) {
             isSuRrouded(i + 1, j, tableau);
         }
@@ -570,6 +570,7 @@ public class Player extends Cell {
         int x;
         int y;
         int pos = 0;
+        boolean valid = true;
         StoneWall stoneWall = new StoneWall();
         IceWall iceWall = new IceWall();
         if (nbIce != 0 && nbStone != 0) {
@@ -623,8 +624,9 @@ public class Player extends Cell {
                     for (int i = 0; i < positionJewels.size(); i++) {
                         int[][][] tableau = posArrayBool(8, 8);
                         tableau[x][y][0] = 1;
-                        if (this.isSuRrouded(key / 10, key % 10, posArrayBool(8, 8))) {
-                            System.out.println("Illegal wall : it won't be possible to touch one of the jewel");
+                        if (this.isSuRrouded(key / 10, key % 10, tableau)) {
+                            System.out.println("Illegal wall : it won't be possible for one of the turtle to touch the jewel on x = " + key / 10 + " and y = " + key % 10);
+                            valid = false;
                         }
                         try {
                             key = positionJewels.higherKey(key);
@@ -633,7 +635,7 @@ public class Player extends Cell {
                         }
                     }
                 }
-            } while (!isAvailable(pos) || this.isSuRrouded(this.getPositionX(), this.getPositionY(), posArrayBool(8, 8)));
+            } while (!isAvailable(pos) || !valid);
             if (wallType == 1) {
                 positionWalls.put(pos, iceWall);
                 nbIce--;
