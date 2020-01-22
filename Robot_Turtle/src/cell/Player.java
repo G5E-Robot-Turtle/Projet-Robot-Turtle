@@ -617,8 +617,8 @@ public class Player extends Cell {
                     int key = positionJewels.firstKey();
                     for (int i = 0; i < positionJewels.size(); i++) {
                         int[][][] tableau = posArrayBool(8, 8);
-                        if (wallType == 2) {
-                            tableau[x][y][0] = 1;
+                        if (wallType == 2) {       //si on pose un mur de pierre
+                            tableau[x][y][0] = 1;     //alors on fait comme si le mur est posé pour tester la validité des chemins possibles
                         }
                         if (this.isSuRrouded(key / 10, key % 10, tableau)) {
                             System.out.println("Illegal wall : it won't be possible for one of the turtle to touch the jewel on x = " + (key / 10 + 1) + " and y = " + (key % 10 + 1));
